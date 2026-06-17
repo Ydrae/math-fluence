@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math Fluence - GeoGebra Hello World</title>
+    <title>Math Academy - Vrai Exercice Test</title>
     
     <script src="https://www.geogebra.org/apps/deployggb.js"></script>
 
@@ -28,15 +28,20 @@
         .node-button:hover {
             background-color: #45a049;
         }
-        /* Style pour la zone GeoGebra */
+        #status-text {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 15px;
+            color: #333;
+        }
         #ggb-container {
             margin: 0 auto;
-            max-width: 800px;
+            max-width: 600px;
             border: 2px solid #ccc;
             border-radius: 8px;
             background-color: white;
             padding: 10px;
-            display: none; /* Caché au départ */
+            display: none;
         }
     </style>
 </head>
@@ -44,32 +49,76 @@
 
     <h1>Math Academy</h1>
     
-    <button class="node-button" onclick="chargerGeoGebra()">Nœud test : Ouvrir GeoGebra</button>
+    <button class="node-button" onclick="chargerGeoGebra()">Nœud test : Lancer l'exercice</button>
+
+    <div id="status-text">Clique sur le nœud pour commencer.</div>
 
     <div id="ggb-container">
         <div id="ggb-element"></div>
     </div>
 
     <script>
-        function chargerGeoGebra() {
-            // Affiche le conteneur qui était caché
-            document.getElementById('ggb-container').style.display = 'block';
+        // Cette fonction s'exécute automatiquement dès que l'application GeoGebra est prête
+        function ggbOnInit(appletId) {
+            console.log("GeoGebra est prêt avec l'ID : " + appletId);
+            
+            // Récupération sécurisée de l'instance
+            var ggb = window[appletId] || ggbApplet;
+            
+            try {
+                // 1. On nettoie l'interface via evalCommand pour éviter le bug de fonction manquante
+                ggb.evalCommand("ShowAxes[false]");
+                ggb.evalCommand("ShowGrid[false]");
+                
+                // 2. On initialise les variables mathématiques
+                ggb.evalCommand("reponse = 0");
+                ggb.evalCommand("reussite = (reponse == 2)");
+                
+                // 3. On crée le texte et le champ de saisie avec les crochets [ ]
+                ggb.evalCommand('TexteQuestion = Text["1 + 1 = ", (-2, 0.3)]');
+                ggb.evalCommand('ChampSaisie = InputBox[reponse]');
+                ggb.evalCommand('SetCoords[ChampSaisie, 1, 0.5]');
+                ggb.evalCommand('ShowLabel[ChampSaisie, false]');
+                
+                // 4. On branche l'écouteur d'événements JavaScript
+                ggb.registerObjectUpdateListener("reussite", "ecouterChangements");
+                
+                ggb.refreshViews();
+            } catch (error) {
+                console.error("Erreur lors de la configuration de l'exercice :", error);
+            }
+        }
 
-            // Paramètres de l'application GeoGebra
+        // Cette fonction intercepte les changements de la variable "reussite"
+        function ecouterChangements(nomObjet) {
+            var ggb = window["ggbApplet"] || ggbApplet;
+            var valeurReussite = ggb.getValue("reussite");
+            
+            if (valeurReussite === 1) {
+                document.getElementById("status-text").innerHTML = "🎉 BRAVO ! Le site a détecté que tu as trouvé 2. Niveau Validé !";
+                document.getElementById("status-text").style.color = "#4CAF50";
+            }
+        }
+
+        // Chargement initial de l'application
+        function chargerGeoGebra() {
+            document.getElementById('ggb-container').style.display = 'block';
+            document.getElementById('status-text').innerHTML = "Résous l'exercice dans la zone ci-dessous.";
+            document.getElementById('status-text').style.color = "#333";
+
             var params = {
-                "appName": "suite", // Lance la suite GeoGebra (Graphique, Calcul formel...)
-                "width": 800,
-                "height": 500,
-                "showToolBar": false,    // On cache les outils pour garder l'interface propre
-                "showMenuBar": false,    // Pas de menu pour l'élève
-                "showAlgebraInput": true, // On laisse l'algèbre pour le Hello World
-                "language": "fr"
+                "id": "ggbApplet",         
+                "appName": "geometry",     
+                "width": 600,
+                "height": 300,
+                "showToolBar": false,      
+                "showMenuBar": false,      
+                "showAlgebraInput": false, 
+                "language": "fr",
+                "useBrowserForJS": true    
             };
 
-            // Initialisation de l'objet GeoGebra
             var applet = new GGBApplet(params, true);
-
-            // Injection dans la div "ggb-element"
             applet.inject('ggb-element');
         }
     </script>
