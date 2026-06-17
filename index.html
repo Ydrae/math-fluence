@@ -3,29 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Math Fluence - Prototype</title>
+    <title>Math Fluence - GeoGebra Hello World</title>
+    
+    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: #f4f4f9;
-            padding: 50px;
+            padding: 20px;
         }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            display: inline-block;
+        .node-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 32px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        .node-button:hover {
+            background-color: #45a049;
+        }
+        /* Style pour la zone GeoGebra */
+        #ggb-container {
+            margin: 0 auto;
+            max-width: 800px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            background-color: white;
+            padding: 10px;
+            display: none; /* Caché au départ */
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Hello World !</h1>
-        <p>Le futur Duolingo des mathématiques commence ici.</p>
+    <h1>Math Academy</h1>
+    
+    <button class="node-button" onclick="chargerGeoGebra()">Nœud test : Ouvrir GeoGebra</button>
+
+    <div id="ggb-container">
+        <div id="ggb-element"></div>
     </div>
+
+    <script>
+        function chargerGeoGebra() {
+            // Affiche le conteneur qui était caché
+            document.getElementById('ggb-container').style.display = 'block';
+
+            // Paramètres de l'application GeoGebra
+            var params = {
+                "appName": "suite", // Lance la suite GeoGebra (Graphique, Calcul formel...)
+                "width": 800,
+                "height": 500,
+                "showToolBar": false,    // On cache les outils pour garder l'interface propre
+                "showMenuBar": false,    // Pas de menu pour l'élève
+                "showAlgebraInput": true, // On laisse l'algèbre pour le Hello World
+                "language": "fr"
+            };
+
+            // Initialisation de l'objet GeoGebra
+            var applet = new GGBApplet(params, true);
+
+            // Injection dans la div "ggb-element"
+            applet.inject('ggb-element');
+        }
+    </script>
 
 </body>
 </html>
