@@ -592,10 +592,7 @@
         }
 
         .btn-debloquer {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            display: block;
             width: 100%;
             padding: 14px 16px;
             font-size: 16px;
@@ -607,15 +604,9 @@
             cursor: pointer;
             margin-bottom: 20px;
             box-shadow: 0 5px 16px rgba(255, 107, 53, 0.4);
-            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
-
-        .btn-debloquer__icon {
-            flex: 0 0 auto;
-            width: 22px;
-            height: 22px;
-            display: block;
         }
 
         .btn-debloquer:hover {
@@ -723,131 +714,53 @@
             cursor: pointer;
         }
 
-        /* Ordinateur — champ code élargi, aligné avec le bouton Déblocage */
-        @media (min-width: 769px) {
-            .unlock-code-row input {
-                flex: 1 1 auto;
-                width: auto;
-                min-width: 118px;
-            }
-        }
-
         @media (max-width: 768px) {
             body {
-                padding: 4px;
-                padding-top: 76px;
-            }
-
-            h1 {
-                font-size: 1.35rem;
-                margin-bottom: 4px;
-            }
-
-            .subtitle {
-                font-size: 0.82rem;
-                margin-bottom: 10px;
-                padding: 0 2px;
-            }
-
-            /* Vue d'ensemble du graphe sans dézoom manuel */
-            #graph-viewport {
-                width: calc(100vw - 8px);
-                margin: 0 auto;
-                overflow: hidden;
-            }
-
-            #graph-container {
-                max-width: none;
-                width: 1100px;
-                margin: 0 auto;
-                transform-origin: top center;
+                padding: 12px;
+                padding-top: 92px;
             }
 
             /* HUD fixé en haut — ne défile pas avec la page */
             #user-hud {
                 position: fixed;
-                top: 10px;
-                left: 10px;
+                top: 8px;
+                left: 8px;
                 z-index: 100;
             }
 
-            .xp-star {
-                width: 50px;
-                height: 50px;
-            }
-
-            .xp-star__level {
-                font-size: 19px;
-            }
-
             .xp-bar {
-                width: min(108px, calc(100vw - 108px));
-                height: 30px;
-                margin-left: -16px;
-            }
-
-            .xp-bar__text {
-                font-size: 11px;
+                width: min(168px, calc(100vw - 118px));
             }
 
             #streak-counter {
                 position: fixed;
-                top: 10px;
-                right: 10px;
+                top: 8px;
+                right: 8px;
                 left: auto;
                 bottom: auto;
                 z-index: 100;
-                padding: 6px 10px;
-                font-size: 12px;
-                gap: 5px;
+                padding: 8px 14px;
+                font-size: 13px;
             }
 
             .streak-flame {
-                font-size: 16px;
+                font-size: 18px;
             }
 
             #streak-count {
-                font-size: 16px;
+                font-size: 18px;
             }
 
             .streak-label {
-                font-size: 11px;
-            }
-
-            /* Extension au tap uniquement (pas au survol) */
-            .node-wrapper.is-hovering .node-unlocked,
-            .node-wrapper.is-hovering .node-levels {
-                width: 224px;
-            }
-
-            .node-wrapper.is-hovering .node-unlocked {
-                width: 224px;
-            }
-
-            .node-wrapper.is-hovering .node-levels,
-            .node-wrapper.is-hovering .node-unlocked.expand-right .node-levels,
-            .node-wrapper.is-hovering .node-unlocked.expand-left .node-levels {
-                flex: 0 0 0;
-                width: 0;
-                opacity: 0;
-                visibility: hidden;
-                padding: 0;
-            }
-
-            .modal--unlock {
-                width: calc(100vw - 16px);
-                max-width: none;
+                font-size: 12px;
             }
 
             .modal--unlock h2 {
-                white-space: nowrap;
-                font-size: 15px;
+                white-space: normal;
+                font-size: 16px;
             }
 
             .modal--content {
-                top: 0;
-                left: 0;
-                transform: none;
                 width: 100vw;
                 height: 100vh;
                 max-width: 100vw;
@@ -857,7 +770,7 @@
             }
 
             .modal__footer-close {
-                display: none;
+                display: block;
             }
         }
     </style>
@@ -888,19 +801,17 @@
         Temporaire : code d'ouverture 1 pour tous sauf le dernier qui est 22110011.
     </p>
 
-    <div id="graph-viewport">
-        <div id="graph-container">
-            <div id="dividers-layer"></div>
-            <svg id="connections">
-                <defs>
-                    <marker id="arrowhead" markerWidth="8" markerHeight="6"
-                            refX="7" refY="3" orient="auto">
-                        <polygon points="0 0, 8 3, 0 6" fill="#888"/>
-                    </marker>
-                </defs>
-            </svg>
-            <div id="nodes-layer"></div>
-        </div>
+    <div id="graph-container">
+        <div id="dividers-layer"></div>
+        <svg id="connections">
+            <defs>
+                <marker id="arrowhead" markerWidth="8" markerHeight="6"
+                        refX="7" refY="3" orient="auto">
+                    <polygon points="0 0, 8 3, 0 6" fill="#888"/>
+                </marker>
+            </defs>
+        </svg>
+        <div id="nodes-layer"></div>
     </div>
 
     <div id="overlay" class="overlay hidden"></div>
@@ -908,13 +819,7 @@
     <div id="unlock-modal" class="modal modal--unlock hidden">
         <button class="modal__close" aria-label="Fermer">&times;</button>
         <h2>Obtiens le code secret en réussisant le test !</h2>
-        <button id="btn-debloquer" class="btn-debloquer" type="button">
-            <svg class="btn-debloquer__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path fill="currentColor" d="M7 10V7a5 5 0 0 1 10 0v3H7z"/>
-                <rect x="5" y="10" width="14" height="11" rx="2.5"/>
-            </svg>
-            Déblocage
-        </button>
+        <button id="btn-debloquer" class="btn-debloquer" type="button">▶ Lancer le test</button>
         <div class="unlock-code-row">
             <label for="unlock-code-input">Code secret :</label>
             <input id="unlock-code-input" type="text" autocomplete="off" placeholder="Entrez le code">
@@ -948,7 +853,6 @@
         let highestTotalXP = 0;
 
         const nodesLayer = document.getElementById('nodes-layer');
-        const graphViewport = document.getElementById('graph-viewport');
         const dividersLayer = document.getElementById('dividers-layer');
         const connectionsSvg = document.getElementById('connections');
         const graphContainer = document.getElementById('graph-container');
@@ -970,53 +874,8 @@
         const NODE_SIZE = 224;
         const BADGE_TOTAL_HEIGHT = 44;
         const GRAPH_BOTTOM_PADDING = 120;
-        const GRAPH_DESIGN_WIDTH = 1100;
         /* Modifier l'espace après les titres de niveaux au survol ici */
         const LEVELS_EXPAND_EXTRA = 32;
-
-        function isMobileLayout() {
-            return window.matchMedia('(max-width: 768px)').matches;
-        }
-
-        function isDesktopHover() {
-            return window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-        }
-
-        /* Ajuste le graphe pour afficher tous les nœuds sans dézoom manuel (téléphone) */
-        function applyMobileGraphFit() {
-            if (!graphViewport) return;
-
-            if (!isMobileLayout()) {
-                graphContainer.style.transform = '';
-                graphViewport.style.height = '';
-                return;
-            }
-
-            const contentHeight = graphContainer.offsetHeight ||
-                parseInt(nodesLayer.style.minHeight, 10) ||
-                400;
-            const marginSide = 4;
-            const availableWidth = window.innerWidth - marginSide * 2;
-            const reservedTop = 118;
-            const availableHeight = Math.max(window.innerHeight - reservedTop, 280);
-            const scale = Math.min(
-                availableWidth / GRAPH_DESIGN_WIDTH,
-                availableHeight / contentHeight,
-                1
-            );
-
-            graphContainer.style.transform = 'scale(' + scale + ')';
-            graphContainer.style.transformOrigin = 'top center';
-            graphViewport.style.height = Math.ceil(contentHeight * scale) + 'px';
-        }
-
-        function collapseAllExpandedNodes() {
-            nodeRegistry.forEach(function (node) {
-                if (node.wrapper.classList.contains('is-expanded')) {
-                    collapseNodeWrapper(node);
-                }
-            });
-        }
 
         /* Modifier la taille des nœuds ici (doit correspondre au CSS .node--locked / .node-unlocked) */
 
@@ -1099,7 +958,7 @@
         }
 
         function resetExpandedLayout(nodeData) {
-            nodeData.wrapper.classList.remove('is-hovering', 'is-expanded');
+            nodeData.wrapper.classList.remove('is-hovering');
             nodeData.wrapper.style.width = '';
             nodeData.wrapper.style.left = nodeData.x + 'px';
             if (nodeData.unlockedElement) {
@@ -1318,37 +1177,37 @@
                     return;
                 }
                 if (event.target.closest('.level-chip')) return;
-
-                if (isMobileLayout()) {
-                    if (!nodeData.wrapper.classList.contains('is-expanded')) {
-                        event.stopPropagation();
-                        collapseAllExpandedNodes();
-                        nodeData.wrapper.classList.add('is-expanded');
-                        applyNodeExpansion(nodeData);
-                        return;
-                    }
-                    if (event.target.closest('.node-disk')) {
-                        openContentModal(nodeData, nodeData.currentLevel);
-                    }
-                    return;
-                }
-
                 if (event.target.closest('.node-disk')) {
                     openContentModal(nodeData, nodeData.currentLevel);
                 }
             });
 
-            if (isDesktopHover()) {
-                nodeData.wrapper.addEventListener('mouseenter', function () {
-                    if (nodeData.state !== NODE_STATE.UNLOCKED) return;
-                    nodeData.wrapper.classList.add('is-hovering');
-                    applyNodeExpansion(nodeData);
-                });
+            nodeData.wrapper.addEventListener('mouseenter', function () {
+                if (nodeData.state !== NODE_STATE.UNLOCKED) return;
+                nodeData.wrapper.classList.add('is-hovering');
+                applyNodeExpansion(nodeData);
+            });
 
-                nodeData.wrapper.addEventListener('mouseleave', function () {
-                    resetExpandedLayout(nodeData);
+            nodeData.wrapper.addEventListener('mouseleave', function () {
+                resetExpandedLayout(nodeData);
+            });
+
+            nodeData.wrapper.addEventListener('touchstart', function (event) {
+                if (nodeData.state !== NODE_STATE.UNLOCKED) return;
+                if (event.target.closest('.level-chip')) return;
+
+                const isExpanded = nodeData.wrapper.classList.contains('is-expanded');
+                document.querySelectorAll('.node-wrapper.is-expanded').forEach(function (el) {
+                    el.classList.remove('is-expanded');
+                    const code = el.dataset.code;
+                    const n = nodeRegistry.get(code);
+                    if (n) resetExpandedLayout(n);
                 });
-            }
+                if (!isExpanded) {
+                    nodeData.wrapper.classList.add('is-expanded');
+                    applyNodeExpansion(nodeData);
+                }
+            }, { passive: true });
         }
 
         function collapseNodeWrapper(nodeData) {
@@ -1515,8 +1374,7 @@
                 unlockError.textContent = 'Aucun site de déverrouillage configuré pour ce nœud.';
                 return;
             }
-            unlockError.textContent = '';
-            openUnlockTestIframe(activeUnlockNode);
+            window.open(activeUnlockNode.unlockUrl, '_blank', 'noopener,noreferrer');
         });
 
         btnValidateCode.addEventListener('click', validateUnlockCode);
@@ -1527,16 +1385,6 @@
 
 
         /* --- Modale iframe --- */
-        function buildIframeHtml(url) {
-            return '<iframe src="' + url + '" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>';
-        }
-
-        function openUnlockTestIframe(nodeData) {
-            contentModalHeader.textContent = nodeData.title + ' · Déblocage';
-            contentModalBody.innerHTML = buildIframeHtml(nodeData.unlockUrl);
-            showModal(contentModal);
-        }
-
         function openContentModal(nodeData, levelNumber) {
             const levelInfo = nodeData.levels.find(function (l) { return l.number === levelNumber; });
             const levelLabel = levelInfo
@@ -1570,36 +1418,11 @@
             activeUnlockNode = null;
         }
 
-        function closeContentModal() {
-            contentModal.classList.add('hidden');
-            contentModalBody.innerHTML = '';
-            contentModalHeader.textContent = '';
-            if (activeUnlockNode && !unlockModal.classList.contains('hidden')) {
-                overlay.classList.remove('hidden');
-            } else if (!activeUnlockNode || unlockModal.classList.contains('hidden')) {
-                overlay.classList.add('hidden');
-            }
-        }
-
-        document.addEventListener('click', function (event) {
-            if (!isMobileLayout()) return;
-            if (event.target.closest('.node-wrapper')) return;
-            if (event.target.closest('.modal')) return;
-            if (event.target.closest('#user-hud')) return;
-            if (event.target.closest('#streak-counter')) return;
-            collapseAllExpandedNodes();
-        });
-
         overlay.addEventListener('click', closeAllModals);
         document.querySelectorAll('.modal__close').forEach(function (button) {
             button.addEventListener('click', function (event) {
                 event.stopPropagation();
-                if (button.closest('#content-modal') && activeUnlockNode &&
-                    !unlockModal.classList.contains('hidden')) {
-                    closeContentModal();
-                } else {
-                    closeAllModals();
-                }
+                closeAllModals();
             });
         });
         contentModalFooterClose.addEventListener('click', closeAllModals);
@@ -1622,7 +1445,6 @@
             dividersLayer.style.height = maxBottom + 'px';
             connectionsSvg.setAttribute('height', maxBottom);
             graphContainer.style.minHeight = maxBottom + 'px';
-            applyMobileGraphFit();
         }
 
         function drawConnections() {
@@ -1663,7 +1485,6 @@
                 }
             });
             drawConnections();
-            applyMobileGraphFit();
         });
 
 
@@ -1751,7 +1572,7 @@
 
 
         /* -------------------------------------------------------------------
-         *  ÉTAPE 4 — Modifier les sites du bouton « Déblocage » ici
+         *  ÉTAPE 4 — Modifier les sites du bouton « Lancer le test » ici
          *  setUnlockUrl(code, 'https://...');
          * ------------------------------------------------------------------- */
 
@@ -1799,7 +1620,6 @@
         updateAllLockedStates();
         updateUserProgress();
         refreshGraphSize();
-        applyMobileGraphFit();
 
     </script>
 
