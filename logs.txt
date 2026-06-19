@@ -1,0 +1,44 @@
+VERSION 02 : (Backup_index02)
+
+ETAT
+Version téléphone ne fonctionne pas
+Version pc fonctionnelle
+
+
+VERSION 03 (backsup_index03)
+
+PROMPT
+Modifie index.html pour apporter les changements suivants.
+
+Changements uniquement pour le téléphone, sans modifier la version ordinateur :
+
+- Plus aucun noeud ni le fond brun ne s'affiche. Ce n'est pas normal.
+
+Changements ordinateur et téléphone :
+
+- Mettre le déblocage en série à la même hauteur que la barre d'expérience
+- Mettre toutes les tailles relatives à la taille de l'écran pour garantir un affichage semblable sur tous les écrans
+
+ETAT
+Version pc fonctionnelle
+Version mobile meilleure.
+Problème majeur sur l'ouverture d'un noeud
+
+VERSION 04
+
+PROMPT
+Modifie index.html pour apporter les changements suivants.
+
+Changements uniquement affecter la version mobile, sans modifier la version ordinateur :
+
+- Il faut laisser apparaître le fond bleu marine à droite de la zone brune de travail, avec la même largeur que le côté gauche qui est la bonne largeur.
+- Lorsque l'utilisateur tap sur un noeud déverrouillé, la bulle niveau actuel/niveau max se déplace correctement mais l'animation d'ouverture du noeud et l'apparition des niveaux du noeud ne s'ouvre pas, contrairement à la version ordinateur qui fonctionne bien.
+
+Changements pour la version ordinateur et la version mobile :
+
+- la forme de pillule dans laquelle il y la flamme, le nombre et le texte "Déblocages en série" doit être à la même hauteur que la barre d'expérience qui est à la bonne hauteur.
+
+ETAT
+Mobile : sur des changements de taille d'écran, ça se met parfois mal
+Sinon fonctionnel
+Bord droit fort contre le bord
