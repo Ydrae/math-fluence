@@ -47,8 +47,8 @@
         /* Modifier la taille de l'étoile ici */
         .xp-star {
             position: relative;
-            width: 72px;
-            height: 72px;
+            width: 80px;
+            height: 80px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -90,7 +90,8 @@
             width: min(270px, calc(100vw - 200px));
             height: 38px;
             /* Modifier le chevauchement étoile / barre ici (valeur négative = plus recouvert) */
-            margin-left: -22px;
+            margin-left: -31px;
+            margin-bottom: 5px;
             background: linear-gradient(180deg, #8d6e63 0%, #6d4c41 55%, #5d4037 100%);
             border-radius: 0 19px 19px 0;
             overflow: hidden;
@@ -144,7 +145,7 @@
         /* Modifier les couleurs du compteur « déblocages en série » ici */
         #streak-counter {
             position: fixed;
-            top: 16px;
+            top: 25px;
             right: 16px;
             display: flex;
             align-items: center;
@@ -188,7 +189,7 @@
         #graph-container {
             position: relative;
             min-height: 400px;
-            max-width: 1100px;
+            max-width: 1300px; /* était 1100 */
             margin: 0 auto;
             background-color: #e4d9c8;
             background-image:
@@ -348,7 +349,7 @@
         }
 
         .node--locked:hover {
-            transform: scale(1.03);
+            transform: scale(1.05);
         }
 
         /* --- Nœud déverrouillé (capsule extensible, forme pillule) --- */
@@ -771,14 +772,14 @@
             /* HUD fixé en haut — ne défile pas avec la page */
             #user-hud {
                 position: fixed;
-                top: 10px;
+                top: 5px;
                 left: 10px;
                 z-index: 100;
             }
 
             .xp-star {
-                width: 50px;
-                height: 50px;
+                width: 55px;
+                height: 55px;
             }
 
             .xp-star__level {
@@ -787,8 +788,9 @@
 
             .xp-bar {
                 width: min(108px, calc(100vw - 108px));
-                height: 30px;
-                margin-left: -16px;
+                height: 20px;
+                margin-left: -20px;
+                margin-bottom: -5px;
             }
 
             .xp-bar__text {
@@ -797,7 +799,7 @@
 
             #streak-counter {
                 position: fixed;
-                top: 10px;
+                top: 20px;
                 right: 10px;
                 left: auto;
                 bottom: auto;
@@ -817,7 +819,7 @@
             }
 
             .streak-label {
-                font-size: 11px;
+                font-size: 12px;
             }
 
             /* Extension au tap uniquement (pas au survol) */
@@ -1692,11 +1694,11 @@
          *  Espacer les nœuds pour que l'extension au survol ne se chevauche pas.
          * ------------------------------------------------------------------- */
 
-        createNode('A', 'Nœud A', 40, 60, []);
-        createNode('B', "Systèmes d'équations à deux inconnues", 820, 60, []);
-        createNode('C', 'Nœud C', 40, 340, ['A']);
-        createNode('D', 'Nœud D', 820, 620, ['A', 'B']);
-        createNode('E', 'Exercice', 430, 900, ['C', 'D']);
+        createNode('A', 'Nœud A', 240, 60, []);
+        createNode('B', "Systèmes d'équations à deux inconnues", 820, 320, []);
+        createNode('C', 'Nœud C', 450, 640, ['A']);
+        createNode('D', 'Nœud D', 820, 950, ['A', 'B']);
+        createNode('E', 'Exercice', 430, 1500, ['C', 'D']);
 
 
         /* -------------------------------------------------------------------
@@ -1706,8 +1708,8 @@
          *  La ligne est brune et discrète ; le titre apparaît en bas à gauche.
          * ------------------------------------------------------------------- */
 
-        createHorizontalLine(600, 'Deuxième année');
-        createHorizontalLine(860, 'Troisième année');
+        createHorizontalLine(900, 'Deuxième année');
+        createHorizontalLine(1300, 'Troisième année');
 
 
         /* -------------------------------------------------------------------
@@ -1786,6 +1788,9 @@
         setNodeIframe('C', 2, COOPMATHS_URL);
         setNodeIframe('C', 3, COOPMATHS_URL);
         setNodeIframe('D', 1, COOPMATHS_URL);
+        setNodeIframe('D', 2, COOPMATHS_URL);
+        setNodeIframe('D', 3, COOPMATHS_URL);
+        setNodeIframe('D', 4, COOPMATHS_URL);
         setNodeIframe('E', 1, COOPMATHS_URL);
         setNodeIframe('E', 2, COOPMATHS_URL);
         setNodeIframe('E', 3, COOPMATHS_URL);

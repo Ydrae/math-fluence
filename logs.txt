@@ -39,6 +39,6 @@ Changements pour la version ordinateur et la version mobile :
 - la forme de pillule dans laquelle il y la flamme, le nombre et le texte "Déblocages en série" doit être à la même hauteur que la barre d'expérience qui est à la bonne hauteur.
 
 ETAT
-Mobile : sur des changements de taille d'écran, ça se met parfois mal
+Mobile : sur des changements de taille d'écran, ça se met parfois mal (test VS code) sur mon tel : parfait
 Sinon fonctionnel
 Bord droit fort contre le bord
