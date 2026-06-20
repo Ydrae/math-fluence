@@ -1690,8 +1690,7 @@
          *  La ligne est brune et discrète ; le titre apparaît en bas à gauche.
          * ------------------------------------------------------------------- */
 
-        createHorizontalLine(900, 'Deuxième année');
-        createHorizontalLine(1300, 'Troisième année');
+        createHorizontalLine(3900, 'Troisième année');
 
         /* -------------------------------------------------------------------
          *  ÉTAPE 1 — Modifier les nœuds ici
@@ -1703,7 +1702,7 @@
          *  Espacer les nœuds pour que l'extension au survol ne se chevauche pas.
          * ------------------------------------------------------------------- */
 
-        createNode('12P', 'Puissances naturelles', 240, 60, []);
+        createNode('12P', 'Puissances naturelles', 536, 60, []);
         setNodeLevels('12P', [
             { number: 1, title: 'Initiation' },
             { number: 2, title: 'Confirmé' }
@@ -1726,7 +1725,7 @@
 
 
 
-        createNode('12F', "Facteurs premiers", 820, 320, []);
+        createNode('12F', "Facteurs premiers", 820, 820, []);
         setNodeLevels('12F', [
             { number: 1, title: 'Décomposition en facteurs premiers' },
             { number: 2, title: 'PH2'}
@@ -1745,7 +1744,7 @@
 
 
 
-        createNode('12Pemdas', 'Priorités des opérations', 450, 640, ['12P']);
+        createNode('12Pemdas', 'Priorités des opérations', 450, 490, ['12P']);
         setNodeLevels('12Pemdas', [
             { number: 1, title: 'Facile' },
             { number: 2, title: 'Moyen' },
@@ -1768,7 +1767,7 @@
 
 
 
-        createNode('12FX', 'Multiplication de fractions', 820, 950, ['12Pemdas']);
+        createNode('12FX', 'Multiplication de fractions', 220, 1150, ['12Pemdas']);
         setNodeLevels('12FX', [
             { number: 1, title: 'Étape 1' },
             { number: 2, title: 'Étape 2' },
@@ -1794,7 +1793,7 @@
 
 
 
-        createNode('12FS', 'Simplification de fractions', 430, 1500, ['12FX', '12F']);
+        createNode('12FS', 'Simplification de fractions', 540, 1500, ['12FX', '12F']);
         setNodeLevels('12FS', [
             { number: 1, title: 'Découverte' },
             { number: 2, title: 'Entraînement' },
@@ -1811,7 +1810,57 @@
         setNodeIframe('12FS', 5, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
 
 
+
+
+        createNode('12FA', "Addition de fractions", 315, 1950, ['12FS']);
+        setNodeLevels('12FA', [
+            { number: 1, title: 'PH1' },
+            { number: 2, title: 'PH2'}
+        ]);
+        setNodeIframe('12FA', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+
+
+
+
+        createNode('12CL', "Calcul littéral", 865, 2300, ['12Pemdas','12FA']);
+        setNodeLevels('12CL', [
+            { number: 1, title: 'PH1' },
+            { number: 2, title: 'PH2'}
+        ]);
+        setNodeIframe('12CL', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+
+
+        createNode('12DME', "Distributivité et mise en évidence", 215, 2570, ['12CL']);
+        setNodeLevels('12DME', [
+            { number: 1, title: 'PH1' },
+            { number: 2, title: 'PH2'}
+        ]);
+        setNodeIframe('12DME', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+
+
+
+        createNode('12EQ1', "Équations du premier degré", 536, 3000, ['12DME','12CL']);
+        setNodeLevels('12EQ1', [
+            { number: 1, title: 'PH1' },
+            { number: 2, title: 'PH2'}
+        ]);
+        setNodeIframe('12EQ1', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+
         
+        createNode('12PR', "Produits remarquables", 178, 3400, ['12EQ1']);
+        setNodeLevels('12PR', [
+            { number: 1, title: 'PH1' },
+            { number: 2, title: 'PH2'}
+        ]);
+        setNodeIframe('12PR', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+
+
+        createNode('12Facto', "Factorisation", 950, 3600, ['12PR']);
+        setNodeLevels('12Facto', [
+            { number: 1, title: 'PH1' },
+            { number: 2, title: 'PH2'}
+        ]);
+        setNodeIframe('12Facto', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
 
 
         /* -------------------------------------------------------------------
