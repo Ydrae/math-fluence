@@ -893,7 +893,7 @@
 
     <h1>Math Academy</h1>
     <p class="subtitle">
-        Temporaire : code d'ouverture 1 pour tous sauf le dernier qui est 22110011.
+        Temporaire : code d'ouverture 1 pour tous.
     </p>
 
     <div id="graph-viewport">
@@ -1683,6 +1683,15 @@
          *  Suivez les commentaires « Modifier ... ici ».
          * =================================================================== */
 
+        /* -------------------------------------------------------------------
+         *  ÉTAPE 1b — Modifier les lignes transversales ici
+         *
+         *  createHorizontalLine(positionY, 'Titre de la section');
+         *  La ligne est brune et discrète ; le titre apparaît en bas à gauche.
+         * ------------------------------------------------------------------- */
+
+        createHorizontalLine(900, 'Deuxième année');
+        createHorizontalLine(1300, 'Troisième année');
 
         /* -------------------------------------------------------------------
          *  ÉTAPE 1 — Modifier les nœuds ici
@@ -1694,110 +1703,115 @@
          *  Espacer les nœuds pour que l'extension au survol ne se chevauche pas.
          * ------------------------------------------------------------------- */
 
-        createNode('A', 'Nœud A', 240, 60, []);
-        createNode('B', "Systèmes d'équations à deux inconnues", 820, 320, []);
-        createNode('C', 'Nœud C', 450, 640, ['A']);
-        createNode('D', 'Nœud D', 820, 950, ['A', 'B']);
-        createNode('E', 'Exercice', 430, 1500, ['C', 'D']);
-
-
-        /* -------------------------------------------------------------------
-         *  ÉTAPE 1b — Modifier les lignes transversales ici
-         *
-         *  createHorizontalLine(positionY, 'Titre de la section');
-         *  La ligne est brune et discrète ; le titre apparaît en bas à gauche.
-         * ------------------------------------------------------------------- */
-
-        createHorizontalLine(900, 'Deuxième année');
-        createHorizontalLine(1300, 'Troisième année');
-
-
-        /* -------------------------------------------------------------------
-         *  ÉTAPE 2 — Modifier les niveaux de chaque nœud ici
-         *
-         *  setNodeLevels(code, [ { number: 1, title: '...' }, ... ]);
-         * ------------------------------------------------------------------- */
-
-        setNodeLevels('A', [
+        createNode('12P', 'Puissances naturelles', 240, 60, []);
+        setNodeLevels('12P', [
             { number: 1, title: 'Initiation' },
             { number: 2, title: 'Confirmé' }
         ]);
+        // setUnlockUrl('C', 'https://numbas.mathcentre.ac.uk/exam/48669/test-exam/embed/');
+        // setUnlockCode('12P', '1');
+        setNodeIframe('12P', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        setNodeIframe('12P', 2, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        
 
-        setNodeLevels('B', [
-            { number: 1, title: 'Mise en équation' },
-            { number: 2, title: 'Résolution graphique' },
-            { number: 3, title: 'Substitution et combinaison' }
+
+        
+
+
+
+
+
+
+
+
+
+
+        createNode('12F', "Facteurs premiers", 820, 320, []);
+        setNodeLevels('12F', [
+            { number: 1, title: 'Décomposition en facteurs premiers' },
+            { number: 2, title: 'PH2'}
         ]);
+        setNodeIframe('12F', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        setNodeIframe('12F', 2, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        setNodeIframe('12F', 3, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        
 
-        setNodeLevels('C', [
+
+
+
+
+
+
+
+
+
+        createNode('12Pemdas', 'Priorités des opérations', 450, 640, ['12P']);
+        setNodeLevels('12Pemdas', [
             { number: 1, title: 'Facile' },
             { number: 2, title: 'Moyen' },
             { number: 3, title: 'Difficile' }
         ]);
+        setUnlockUrl('12Pemdas', 'https://numbas.mathcentre.ac.uk/exam/48669/test-exam/embed/');
+        setUnlockCode('12Pemdas', '1');
+        setNodeIframe('12Pemdas', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        setNodeIframe('12Pemdas', 2, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        setNodeIframe('12Pemdas', 3, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        
+        
+        
 
-        setNodeLevels('D', [
+
+
+
+
+
+
+
+
+        createNode('12FX', 'Multiplication de fractions', 820, 950, ['12Pemdas']);
+        setNodeLevels('12FX', [
             { number: 1, title: 'Étape 1' },
             { number: 2, title: 'Étape 2' },
             { number: 3, title: 'Étape 3' },
             { number: 4, title: 'Étape 4' }
         ]);
+        setUnlockCode('12FX', '1');
+        setUnlockUrl('12FX', 'https://numbas.mathcentre.ac.uk/exam/48669/test-exam/embed/');
+        setNodeIframe('12FX', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        setNodeIframe('12FX', 2, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        setNodeIframe('12FX', 3, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        setNodeIframe('12FX', 4, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        
+        
+        
+        
 
-        setNodeLevels('E', [
+
+
+
+
+
+
+
+
+        createNode('12FS', 'Simplification de fractions', 430, 1500, ['12FX', '12F']);
+        setNodeLevels('12FS', [
             { number: 1, title: 'Découverte' },
             { number: 2, title: 'Entraînement' },
             { number: 3, title: 'Perfectionnement' },
             { number: 4, title: 'Expert' },
             { number: 5, title: 'Maître' }
         ]);
+        setUnlockCode('12FS', '1');
+        setUnlockUrl('12FS', 'https://numbas.mathcentre.ac.uk/exam/48669/test-exam/embed/');
+        setNodeIframe('12FS', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        setNodeIframe('12FS', 2, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        setNodeIframe('12FS', 3, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        setNodeIframe('12FS', 4, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        setNodeIframe('12FS', 5, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
 
 
-        /* -------------------------------------------------------------------
-         *  ÉTAPE 3 — Modifier les codes secrets de déverrouillage ici
-         *  setUnlockCode(code, 'votre_code');
-         * ------------------------------------------------------------------- */
-
-        setUnlockCode('C', '1');
-        setUnlockCode('D', '1');
-        setUnlockCode('E', '22110011');
-
-
-        /* -------------------------------------------------------------------
-         *  ÉTAPE 4 — Modifier les sites du bouton « Déblocage » ici
-         *  setUnlockUrl(code, 'https://...');
-         * ------------------------------------------------------------------- */
-
-        setUnlockUrl('C', 'https://numbas.mathcentre.ac.uk/exam/48669/test-exam/embed/');
-        setUnlockUrl('D', 'https://numbas.mathcentre.ac.uk/exam/48669/test-exam/embed/');
-        setUnlockUrl('E', 'https://numbas.mathcentre.ac.uk/exam/48669/test-exam/embed/');
-
-
-        /* -------------------------------------------------------------------
-         *  ÉTAPE 5 — Modifier les iframes par niveau ici
-         *  setNodeIframe(code, numéroDuNiveau, 'https://...');
-         * ------------------------------------------------------------------- */
-
-        const COOPMATHS_URL =
-            'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011';
-
-        setNodeIframe('A', 1, COOPMATHS_URL);
-        setNodeIframe('A', 2, COOPMATHS_URL);
-        setNodeIframe('B', 1, COOPMATHS_URL);
-        setNodeIframe('B', 2, COOPMATHS_URL);
-        setNodeIframe('B', 3, COOPMATHS_URL);
-        setNodeIframe('C', 1, COOPMATHS_URL);
-        setNodeIframe('C', 2, COOPMATHS_URL);
-        setNodeIframe('C', 3, COOPMATHS_URL);
-        setNodeIframe('D', 1, COOPMATHS_URL);
-        setNodeIframe('D', 2, COOPMATHS_URL);
-        setNodeIframe('D', 3, COOPMATHS_URL);
-        setNodeIframe('D', 4, COOPMATHS_URL);
-        setNodeIframe('E', 1, COOPMATHS_URL);
-        setNodeIframe('E', 2, COOPMATHS_URL);
-        setNodeIframe('E', 3, COOPMATHS_URL);
-        setNodeIframe('E', 4, COOPMATHS_URL);
-        setNodeIframe('E', 5,
-            '<iframe src="' + COOPMATHS_URL + '" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>'
-        );
+        
 
 
         /* -------------------------------------------------------------------
