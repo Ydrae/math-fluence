@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -47,8 +46,8 @@
         /* Modifier la taille de l'étoile ici */
         .xp-star {
             position: relative;
-            width: 80px;
-            height: 80px;
+            width: 72px;
+            height: 72px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -90,8 +89,7 @@
             width: min(270px, calc(100vw - 200px));
             height: 38px;
             /* Modifier le chevauchement étoile / barre ici (valeur négative = plus recouvert) */
-            margin-left: -31px;
-            margin-bottom: 5px;
+            margin-left: -22px;
             background: linear-gradient(180deg, #8d6e63 0%, #6d4c41 55%, #5d4037 100%);
             border-radius: 0 19px 19px 0;
             overflow: hidden;
@@ -145,13 +143,12 @@
         /* Modifier les couleurs du compteur « déblocages en série » ici */
         #streak-counter {
             position: fixed;
-            top: 25px;
+            top: 20px;
             right: 16px;
             display: flex;
             align-items: center;
             gap: 8px;
-            height: 38px;
-            padding: 0 22px;
+            padding: 10px 22px;
             background: linear-gradient(180deg, #eceff1 0%, #cfd8dc 100%);
             border-radius: 999px;
             box-shadow:
@@ -189,7 +186,7 @@
         #graph-container {
             position: relative;
             min-height: 400px;
-            max-width: 1300px; /* était 1100 */
+            max-width: 1100px;
             margin: 0 auto;
             background-color: #e4d9c8;
             background-image:
@@ -349,7 +346,7 @@
         }
 
         .node--locked:hover {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
         /* --- Nœud déverrouillé (capsule extensible, forme pillule) --- */
@@ -594,10 +591,7 @@
         }
 
         .btn-debloquer {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            display: block;
             width: 100%;
             padding: 14px 16px;
             font-size: 16px;
@@ -609,15 +603,9 @@
             cursor: pointer;
             margin-bottom: 20px;
             box-shadow: 0 5px 16px rgba(255, 107, 53, 0.4);
-            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
-
-        .btn-debloquer__icon {
-            flex: 0 0 auto;
-            width: 22px;
-            height: 22px;
-            display: block;
         }
 
         .btn-debloquer:hover {
@@ -725,137 +713,53 @@
             cursor: pointer;
         }
 
-        /* Ordinateur — champ code élargi, aligné avec le bouton Déblocage */
-        @media (min-width: 769px) {
-            .unlock-code-row input {
-                flex: 1 1 auto;
-                width: auto;
-                min-width: 118px;
-            }
-        }
-
         @media (max-width: 768px) {
             body {
-                padding: 4px;
-                padding-top: 76px;
-            }
-
-            h1 {
-                font-size: 1.35rem;
-                margin-bottom: 4px;
-            }
-
-            .subtitle {
-                font-size: 0.82rem;
-                margin-bottom: 10px;
-                padding: 0 2px;
-            }
-
-            /* Vue d'ensemble du graphe sans dézoom manuel */
-            #graph-viewport {
-                width: calc(100vw - 8px);
-                margin: 0 4px;
-                overflow: visible;
-                min-height: 320px;
-                padding: 0;
-            }
-
-            #graph-container {
-                max-width: none;
-                width: 1100px;
-                margin: 0;
-                left: 50%;
-                transform-origin: top center;
-                position: relative;
+                padding: 12px;
+                padding-top: 92px;
             }
 
             /* HUD fixé en haut — ne défile pas avec la page */
             #user-hud {
                 position: fixed;
-                top: 5px;
-                left: 10px;
+                top: 8px;
+                left: 8px;
                 z-index: 100;
             }
 
-            .xp-star {
-                width: 55px;
-                height: 55px;
-            }
-
-            .xp-star__level {
-                font-size: 19px;
-            }
-
             .xp-bar {
-                width: min(108px, calc(100vw - 108px));
-                height: 20px;
-                margin-left: -20px;
-                margin-bottom: -5px;
-            }
-
-            .xp-bar__text {
-                font-size: 11px;
+                width: min(168px, calc(100vw - 118px));
             }
 
             #streak-counter {
                 position: fixed;
-                top: 20px;
-                right: 10px;
+                top: 8px;
+                right: 8px;
                 left: auto;
                 bottom: auto;
                 z-index: 100;
-                height: 30px;
-                padding: 0 10px;
-                font-size: 12px;
-                gap: 5px;
+                padding: 8px 14px;
+                font-size: 13px;
             }
 
             .streak-flame {
-                font-size: 16px;
+                font-size: 18px;
             }
 
             #streak-count {
-                font-size: 16px;
+                font-size: 18px;
             }
 
             .streak-label {
                 font-size: 12px;
             }
 
-            /* Extension au tap uniquement (pas au survol) */
-            .node-wrapper.is-hovering .node-unlocked,
-            .node-wrapper.is-hovering .node-levels {
-                width: 224px;
-            }
-
-            .node-wrapper.is-hovering .node-unlocked {
-                width: 224px;
-            }
-
-            .node-wrapper.is-hovering .node-levels,
-            .node-wrapper.is-hovering .node-unlocked.expand-right .node-levels,
-            .node-wrapper.is-hovering .node-unlocked.expand-left .node-levels {
-                flex: 0 0 0;
-                width: 0;
-                opacity: 0;
-                visibility: hidden;
-                padding: 0;
-            }
-
-            .modal--unlock {
-                width: calc(100vw - 16px);
-                max-width: none;
-            }
-
             .modal--unlock h2 {
-                white-space: nowrap;
-                font-size: 15px;
+                white-space: normal;
+                font-size: 16px;
             }
 
             .modal--content {
-                top: 0;
-                left: 0;
-                transform: none;
                 width: 100vw;
                 height: 100vh;
                 max-width: 100vw;
@@ -865,7 +769,7 @@
             }
 
             .modal__footer-close {
-                display: none;
+                display: block;
             }
         }
     </style>
@@ -893,22 +797,20 @@
 
     <h1>Math Academy</h1>
     <p class="subtitle">
-        Temporaire : code d'ouverture 1 pour tous.
+        Temporaire : code d'ouverture 1 pour tous sauf le dernier qui est 22110011.
     </p>
 
-    <div id="graph-viewport">
-        <div id="graph-container">
-            <div id="dividers-layer"></div>
-            <svg id="connections">
-                <defs>
-                    <marker id="arrowhead" markerWidth="8" markerHeight="6"
-                            refX="7" refY="3" orient="auto">
-                        <polygon points="0 0, 8 3, 0 6" fill="#888"/>
-                    </marker>
-                </defs>
-            </svg>
-            <div id="nodes-layer"></div>
-        </div>
+    <div id="graph-container">
+        <div id="dividers-layer"></div>
+        <svg id="connections">
+            <defs>
+                <marker id="arrowhead" markerWidth="8" markerHeight="6"
+                        refX="7" refY="3" orient="auto">
+                    <polygon points="0 0, 8 3, 0 6" fill="#888"/>
+                </marker>
+            </defs>
+        </svg>
+        <div id="nodes-layer"></div>
     </div>
 
     <div id="overlay" class="overlay hidden"></div>
@@ -916,13 +818,7 @@
     <div id="unlock-modal" class="modal modal--unlock hidden">
         <button class="modal__close" aria-label="Fermer">&times;</button>
         <h2>Obtiens le code secret en réussisant le test !</h2>
-        <button id="btn-debloquer" class="btn-debloquer" type="button">
-            <svg class="btn-debloquer__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path fill="currentColor" d="M7 10V7a5 5 0 0 1 10 0v3H7z"/>
-                <rect x="5" y="10" width="14" height="11" rx="2.5"/>
-            </svg>
-            Déblocage
-        </button>
+        <button id="btn-debloquer" class="btn-debloquer" type="button">▶ Lancer le test</button>
         <div class="unlock-code-row">
             <label for="unlock-code-input">Code secret :</label>
             <input id="unlock-code-input" type="text" autocomplete="off" placeholder="Entrez le code">
@@ -956,7 +852,6 @@
         let highestTotalXP = 0;
 
         const nodesLayer = document.getElementById('nodes-layer');
-        const graphViewport = document.getElementById('graph-viewport');
         const dividersLayer = document.getElementById('dividers-layer');
         const connectionsSvg = document.getElementById('connections');
         const graphContainer = document.getElementById('graph-container');
@@ -978,56 +873,8 @@
         const NODE_SIZE = 224;
         const BADGE_TOTAL_HEIGHT = 44;
         const GRAPH_BOTTOM_PADDING = 120;
-        const GRAPH_DESIGN_WIDTH = 1100;
         /* Modifier l'espace après les titres de niveaux au survol ici */
         const LEVELS_EXPAND_EXTRA = 32;
-
-        function isMobileLayout() {
-            return window.matchMedia('(max-width: 768px)').matches;
-        }
-
-        function isDesktopHover() {
-            return window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-        }
-
-        /* Ajuste le graphe pour afficher tous les nœuds sans dézoom manuel (téléphone) */
-        function applyMobileGraphFit() {
-            if (!graphViewport) return;
-
-            if (!isMobileLayout()) {
-                graphContainer.style.left = '';
-                graphContainer.style.marginLeft = '';
-                graphContainer.style.transform = '';
-                graphViewport.style.height = '';
-                return;
-            }
-
-            const contentHeight = graphContainer.offsetHeight ||
-                parseInt(nodesLayer.style.minHeight, 10) ||
-                400;
-            const availableWidth = graphViewport.clientWidth;
-            const reservedTop = 118;
-            const availableHeight = Math.max(window.innerHeight - reservedTop, 280);
-            const scale = Math.min(
-                availableWidth / GRAPH_DESIGN_WIDTH,
-                availableHeight / contentHeight,
-                1
-            );
-
-            graphContainer.style.left = '50%';
-            graphContainer.style.marginLeft = '0';
-            graphContainer.style.transform = 'translateX(-50%) scale(' + scale + ')';
-            graphContainer.style.transformOrigin = 'top center';
-            graphViewport.style.height = Math.ceil(contentHeight * scale) + 'px';
-        }
-
-        function collapseAllExpandedNodes() {
-            nodeRegistry.forEach(function (node) {
-                if (node.wrapper.classList.contains('is-expanded')) {
-                    collapseNodeWrapper(node);
-                }
-            });
-        }
 
         /* Modifier la taille des nœuds ici (doit correspondre au CSS .node--locked / .node-unlocked) */
 
@@ -1110,7 +957,7 @@
         }
 
         function resetExpandedLayout(nodeData) {
-            nodeData.wrapper.classList.remove('is-hovering', 'is-expanded');
+            nodeData.wrapper.classList.remove('is-hovering');
             nodeData.wrapper.style.width = '';
             nodeData.wrapper.style.left = nodeData.x + 'px';
             if (nodeData.unlockedElement) {
@@ -1329,37 +1176,37 @@
                     return;
                 }
                 if (event.target.closest('.level-chip')) return;
-
-                if (isMobileLayout()) {
-                    if (!nodeData.wrapper.classList.contains('is-expanded')) {
-                        event.stopPropagation();
-                        collapseAllExpandedNodes();
-                        nodeData.wrapper.classList.add('is-expanded');
-                        applyNodeExpansion(nodeData);
-                        return;
-                    }
-                    if (event.target.closest('.node-disk')) {
-                        openContentModal(nodeData, nodeData.currentLevel);
-                    }
-                    return;
-                }
-
                 if (event.target.closest('.node-disk')) {
                     openContentModal(nodeData, nodeData.currentLevel);
                 }
             });
 
-            if (isDesktopHover()) {
-                nodeData.wrapper.addEventListener('mouseenter', function () {
-                    if (nodeData.state !== NODE_STATE.UNLOCKED) return;
-                    nodeData.wrapper.classList.add('is-hovering');
-                    applyNodeExpansion(nodeData);
-                });
+            nodeData.wrapper.addEventListener('mouseenter', function () {
+                if (nodeData.state !== NODE_STATE.UNLOCKED) return;
+                nodeData.wrapper.classList.add('is-hovering');
+                applyNodeExpansion(nodeData);
+            });
 
-                nodeData.wrapper.addEventListener('mouseleave', function () {
-                    resetExpandedLayout(nodeData);
+            nodeData.wrapper.addEventListener('mouseleave', function () {
+                resetExpandedLayout(nodeData);
+            });
+
+            nodeData.wrapper.addEventListener('touchstart', function (event) {
+                if (nodeData.state !== NODE_STATE.UNLOCKED) return;
+                if (event.target.closest('.level-chip')) return;
+
+                const isExpanded = nodeData.wrapper.classList.contains('is-expanded');
+                document.querySelectorAll('.node-wrapper.is-expanded').forEach(function (el) {
+                    el.classList.remove('is-expanded');
+                    const code = el.dataset.code;
+                    const n = nodeRegistry.get(code);
+                    if (n) resetExpandedLayout(n);
                 });
-            }
+                if (!isExpanded) {
+                    nodeData.wrapper.classList.add('is-expanded');
+                    applyNodeExpansion(nodeData);
+                }
+            }, { passive: true });
         }
 
         function collapseNodeWrapper(nodeData) {
@@ -1526,8 +1373,7 @@
                 unlockError.textContent = 'Aucun site de déverrouillage configuré pour ce nœud.';
                 return;
             }
-            unlockError.textContent = '';
-            openUnlockTestIframe(activeUnlockNode);
+            window.open(activeUnlockNode.unlockUrl, '_blank', 'noopener,noreferrer');
         });
 
         btnValidateCode.addEventListener('click', validateUnlockCode);
@@ -1538,16 +1384,6 @@
 
 
         /* --- Modale iframe --- */
-        function buildIframeHtml(url) {
-            return '<iframe src="' + url + '" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>';
-        }
-
-        function openUnlockTestIframe(nodeData) {
-            contentModalHeader.textContent = nodeData.title + ' · Déblocage';
-            contentModalBody.innerHTML = buildIframeHtml(nodeData.unlockUrl);
-            showModal(contentModal);
-        }
-
         function openContentModal(nodeData, levelNumber) {
             const levelInfo = nodeData.levels.find(function (l) { return l.number === levelNumber; });
             const levelLabel = levelInfo
@@ -1560,8 +1396,9 @@
             contentModalBody.innerHTML = iframeHtml
                 ? iframeHtml
                 : '<p style="padding:48px 24px;text-align:center;color:#666;">' +
-                  'Aucun contenu disponible pour ce niveau.<br>' +
-                  'Ça arrivera !</p>';
+                  'Aucun contenu configuré pour ce niveau.<br>' +
+                  'Utilisez setNodeIframe("' + nodeData.code + '", ' + levelNumber + ', "...") ' +
+                  'pour en ajouter.</p>';
 
             showModal(contentModal);
         }
@@ -1580,36 +1417,11 @@
             activeUnlockNode = null;
         }
 
-        function closeContentModal() {
-            contentModal.classList.add('hidden');
-            contentModalBody.innerHTML = '';
-            contentModalHeader.textContent = '';
-            if (activeUnlockNode && !unlockModal.classList.contains('hidden')) {
-                overlay.classList.remove('hidden');
-            } else if (!activeUnlockNode || unlockModal.classList.contains('hidden')) {
-                overlay.classList.add('hidden');
-            }
-        }
-
-        document.addEventListener('click', function (event) {
-            if (!isMobileLayout()) return;
-            if (event.target.closest('.node-wrapper')) return;
-            if (event.target.closest('.modal')) return;
-            if (event.target.closest('#user-hud')) return;
-            if (event.target.closest('#streak-counter')) return;
-            collapseAllExpandedNodes();
-        });
-
         overlay.addEventListener('click', closeAllModals);
         document.querySelectorAll('.modal__close').forEach(function (button) {
             button.addEventListener('click', function (event) {
                 event.stopPropagation();
-                if (button.closest('#content-modal') && activeUnlockNode &&
-                    !unlockModal.classList.contains('hidden')) {
-                    closeContentModal();
-                } else {
-                    closeAllModals();
-                }
+                closeAllModals();
             });
         });
         contentModalFooterClose.addEventListener('click', closeAllModals);
@@ -1632,7 +1444,6 @@
             dividersLayer.style.height = maxBottom + 'px';
             connectionsSvg.setAttribute('height', maxBottom);
             graphContainer.style.minHeight = maxBottom + 'px';
-            applyMobileGraphFit();
         }
 
         function drawConnections() {
@@ -1673,7 +1484,6 @@
                 }
             });
             drawConnections();
-            applyMobileGraphFit();
         });
 
 
@@ -1682,14 +1492,6 @@
          *  Suivez les commentaires « Modifier ... ici ».
          * =================================================================== */
 
-        /* -------------------------------------------------------------------
-         *  ÉTAPE 1b — Modifier les lignes transversales ici
-         *
-         *  createHorizontalLine(positionY, 'Titre de la section');
-         *  La ligne est brune et discrète ; le titre apparaît en bas à gauche.
-         * ------------------------------------------------------------------- */
-
-        createHorizontalLine(3900, 'Troisième année');
 
         /* -------------------------------------------------------------------
          *  ÉTAPE 1 — Modifier les nœuds ici
@@ -1701,168 +1503,107 @@
          *  Espacer les nœuds pour que l'extension au survol ne se chevauche pas.
          * ------------------------------------------------------------------- */
 
+        createNode('A', 'Nœud A', 40, 60, []);
+        createNode('B', "Systèmes d'équations à deux inconnues", 820, 60, []);
+        createNode('C', 'Nœud C', 40, 340, ['A']);
+        createNode('D', 'Nœud D', 820, 620, ['A', 'B']);
+        createNode('E', 'Exercice', 430, 900, ['C', 'D']);
 
 
-        createNode('12Pemdas', 'Priorités des opérations', 536, 60, []);
-        setNodeLevels('12Pemdas', [
-            { number: 1, title: '4 opérations de base' },
-            { number: 2, title: 'Avec des puissances' },
-            { number: 3, title: 'Avec des parenthèses' },
-            { number: 4, title: 'Plus d\'opérations'},
-            { number: 5, title: 'Attention aux pièges !'},
-        ]);
-        setUnlockUrl('12Pemdas', 'https://numbas.mathcentre.ac.uk/exam/48669/test-exam/embed/');
-        // 5C12-0 sans parenthèses, 4C11 sans parenthèses
-        setNodeIframe('12Pemdas', 1, 'https://coopmaths.fr/alea/?uuid=4c10a&id=5C12-0&n=5&d=10&s=1&s2=false&s3=true&s4=true&i=1&cd=1&tip=0&uuid=62f66&id=4C11&n=5&d=10&s=1&s2=false&i=1&cd=1&tip=0&v=eleve&es=21100000&title=4%2520op%25C3%25A9rations%2520de%2520base');
-        // 4C34 mélange
-        setNodeIframe('12Pemdas', 2, 'https://coopmaths.fr/alea/?uuid=2d79c&id=4C34&n=5&d=10&s=false&s2=3&s3=false&i=1&cd=1&tip=0&alea=27NM&v=eleve&es=21100000&title=Avec%2520des%2520puissances');
-        // 5C12-0 avec parenthèses, 5C12 option 2, 4C11 avec parenthèses
-        setNodeIframe('12Pemdas', 3, 'https://coopmaths.fr/alea/?uuid=e61fc&id=5C12&n=4&d=10&s=2&s2=false&s3=true&s4=false&i=1&cd=1&tip=0&uuid=4c10a&id=5C12-0&n=4&d=10&s=2&s2=false&s3=true&s4=true&i=1&cd=1&tip=0&uuid=62f66&id=4C11&n=4&d=10&s=2&s2=false&i=1&cd=1&tip=0&v=eleve&es=21100000&title=Avec%2520des%2520parenth%25C3%25A8ses');
-        // 5C12 option 3, 4 et 5
-        setNodeIframe('12Pemdas', 4, 'https://coopmaths.fr/alea/?uuid=e61fc&id=5C12&n=4&d=10&s=3&s2=false&s3=true&s4=false&i=1&cd=1&tip=0&uuid=e61fc&id=5C12&n=3&d=10&s=4&s2=false&s3=true&s4=false&i=1&cd=1&tip=0&uuid=e61fc&id=5C12&n=2&d=10&s=5&s2=false&s3=true&s4=false&i=1&cd=1&tip=0&v=eleve&es=21100000&title=Plus%2520d%27op%25C3%25A9rations');
-        // 4C33-0 écrire en puissances
-        setNodeIframe('12Pemdas', 5, 'https://coopmaths.fr/alea/?uuid=1d078&id=4C33-0&n=5&d=10&s=2&s2=3&s3=1&s4=3&s5=2&i=1&cd=1&tip=0&v=eleve&es=21100000&title=Attention%2520aux%2520pi%25C3%25A8ges%2520%21');
-        
-        
-        
-        createNode('12P', 'Puissances naturelles', 900, 460, ['12Pemdas']);
-        setNodeLevels('12P', [
+        /* -------------------------------------------------------------------
+         *  ÉTAPE 1b — Modifier les lignes transversales ici
+         *
+         *  createHorizontalLine(positionY, 'Titre de la section');
+         *  La ligne est brune et discrète ; le titre apparaît en bas à gauche.
+         * ------------------------------------------------------------------- */
+
+        createHorizontalLine(600, 'Deuxième année');
+        createHorizontalLine(860, 'Troisième année');
+
+
+        /* -------------------------------------------------------------------
+         *  ÉTAPE 2 — Modifier les niveaux de chaque nœud ici
+         *
+         *  setNodeLevels(code, [ { number: 1, title: '...' }, ... ]);
+         * ------------------------------------------------------------------- */
+
+        setNodeLevels('A', [
             { number: 1, title: 'Initiation' },
             { number: 2, title: 'Confirmé' }
         ]);
-        setUnlockUrl('12P', 'https://numbas.mathcentre.ac.uk/exam/48669/test-exam/embed/');
-        setUnlockCode('12P', '1');
-        setNodeIframe('12P', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-        setNodeIframe('12P', 2, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-        
 
-
-        createNode('12F', "Facteurs premiers", 530, 820, []);
-        setNodeLevels('12F', [
-            { number: 1, title: 'Décomposition en facteurs premiers' },
-            { number: 2, title: 'PH2'}
+        setNodeLevels('B', [
+            { number: 1, title: 'Mise en équation' },
+            { number: 2, title: 'Résolution graphique' },
+            { number: 3, title: 'Substitution et combinaison' }
         ]);
-        setNodeIframe('12F', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-        setNodeIframe('12F', 2, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-        setNodeIframe('12F', 3, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-        
 
+        setNodeLevels('C', [
+            { number: 1, title: 'Facile' },
+            { number: 2, title: 'Moyen' },
+            { number: 3, title: 'Difficile' }
+        ]);
 
-
-
-
-
-
-
-
-
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-        createNode('12FX', 'Multiplication de fractions', 180, 1150, ['12Pemdas']);
-        setNodeLevels('12FX', [
+        setNodeLevels('D', [
             { number: 1, title: 'Étape 1' },
             { number: 2, title: 'Étape 2' },
             { number: 3, title: 'Étape 3' },
             { number: 4, title: 'Étape 4' }
         ]);
-        setUnlockCode('12FX', '1');
-        setUnlockUrl('12FX', 'https://numbas.mathcentre.ac.uk/exam/48669/test-exam/embed/');
-        setNodeIframe('12FX', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-        setNodeIframe('12FX', 2, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-        setNodeIframe('12FX', 3, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-        setNodeIframe('12FX', 4, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-        
-        
-        
-        
 
-
-
-
-
-
-
-
-
-        createNode('12FS', 'Simplification de fractions', 540, 1500, ['12FX', '12F']);
-        setNodeLevels('12FS', [
+        setNodeLevels('E', [
             { number: 1, title: 'Découverte' },
             { number: 2, title: 'Entraînement' },
             { number: 3, title: 'Perfectionnement' },
             { number: 4, title: 'Expert' },
             { number: 5, title: 'Maître' }
         ]);
-        setUnlockCode('12FS', '1');
-        setUnlockUrl('12FS', 'https://numbas.mathcentre.ac.uk/exam/48669/test-exam/embed/');
-        setNodeIframe('12FS', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-        setNodeIframe('12FS', 2, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-        setNodeIframe('12FS', 3, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-        setNodeIframe('12FS', 4, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-        setNodeIframe('12FS', 5, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
 
 
+        /* -------------------------------------------------------------------
+         *  ÉTAPE 3 — Modifier les codes secrets de déverrouillage ici
+         *  setUnlockCode(code, 'votre_code');
+         * ------------------------------------------------------------------- */
+
+        setUnlockCode('C', '1');
+        setUnlockCode('D', '1');
+        setUnlockCode('E', '22110011');
 
 
-        createNode('12FA', "Addition de fractions", 315, 1950, ['12FS']);
-        setNodeLevels('12FA', [
-            { number: 1, title: 'PH1' },
-            { number: 2, title: 'PH2'}
-        ]);
-        setNodeIframe('12FA', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        /* -------------------------------------------------------------------
+         *  ÉTAPE 4 — Modifier les sites du bouton « Lancer le test » ici
+         *  setUnlockUrl(code, 'https://...');
+         * ------------------------------------------------------------------- */
+
+        setUnlockUrl('C', 'https://numbas.mathcentre.ac.uk/exam/48669/test-exam/embed/');
+        setUnlockUrl('D', 'https://numbas.mathcentre.ac.uk/exam/48669/test-exam/embed/');
+        setUnlockUrl('E', 'https://numbas.mathcentre.ac.uk/exam/48669/test-exam/embed/');
 
 
+        /* -------------------------------------------------------------------
+         *  ÉTAPE 5 — Modifier les iframes par niveau ici
+         *  setNodeIframe(code, numéroDuNiveau, 'https://...');
+         * ------------------------------------------------------------------- */
 
+        const COOPMATHS_URL =
+            'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011';
 
-        createNode('12CL', "Calcul littéral", 865, 2300, ['12P','12FA']);
-        setNodeLevels('12CL', [
-            { number: 1, title: 'PH1' },
-            { number: 2, title: 'PH2'}
-        ]);
-        setNodeIframe('12CL', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-
-
-        createNode('12DME', "Distributivité et mise en évidence", 215, 2570, ['12CL']);
-        setNodeLevels('12DME', [
-            { number: 1, title: 'PH1' },
-            { number: 2, title: 'PH2'}
-        ]);
-        setNodeIframe('12DME', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-
-
-
-        createNode('12EQ1', "Équations du premier degré", 536, 3000, ['12DME','12CL']);
-        setNodeLevels('12EQ1', [
-            { number: 1, title: 'PH1' },
-            { number: 2, title: 'PH2'}
-        ]);
-        setNodeIframe('12EQ1', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-
-        
-        createNode('12PR', "Produits remarquables", 178, 3400, ['12EQ1']);
-        setNodeLevels('12PR', [
-            { number: 1, title: 'PH1' },
-            { number: 2, title: 'PH2'}
-        ]);
-        setNodeIframe('12PR', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-
-
-        createNode('12Facto', "Factorisation", 950, 3600, ['12PR']);
-        setNodeLevels('12Facto', [
-            { number: 1, title: 'PH1' },
-            { number: 2, title: 'PH2'}
-        ]);
-        setNodeIframe('12Facto', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        setNodeIframe('A', 1, COOPMATHS_URL);
+        setNodeIframe('A', 2, COOPMATHS_URL);
+        setNodeIframe('B', 1, COOPMATHS_URL);
+        setNodeIframe('B', 2, COOPMATHS_URL);
+        setNodeIframe('B', 3, COOPMATHS_URL);
+        setNodeIframe('C', 1, COOPMATHS_URL);
+        setNodeIframe('C', 2, COOPMATHS_URL);
+        setNodeIframe('C', 3, COOPMATHS_URL);
+        setNodeIframe('D', 1, COOPMATHS_URL);
+        setNodeIframe('E', 1, COOPMATHS_URL);
+        setNodeIframe('E', 2, COOPMATHS_URL);
+        setNodeIframe('E', 3, COOPMATHS_URL);
+        setNodeIframe('E', 4, COOPMATHS_URL);
+        setNodeIframe('E', 5,
+            '<iframe src="' + COOPMATHS_URL + '" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>'
+        );
 
 
         /* -------------------------------------------------------------------
@@ -1878,7 +1619,6 @@
         updateAllLockedStates();
         updateUserProgress();
         refreshGraphSize();
-        applyMobileGraphFit();
 
     </script>
 
