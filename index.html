@@ -1029,11 +1029,54 @@
         const GRAPH_BOTTOM_PADDING = 120;
         /* Marge à droite du nœud le plus à droite (largeur zone brune mobile) */
         const GRAPH_RIGHT_PADDING = 40;
+        const GRAPH_BASE_WIDTH = 1300;
         /* Modifier l'espace après les titres de niveaux au survol ici */
         const LEVELS_EXPAND_EXTRA = 32;
 
         function isMobileLayout() {
             return window.matchMedia('(max-width: 768px)').matches;
+        }
+
+        function getGraphUsableWidth() {
+            if (!graphContainer) {
+                return GRAPH_BASE_WIDTH;
+            }
+            if (isMobileLayout()) {
+                return graphViewport ? graphViewport.clientWidth : GRAPH_BASE_WIDTH;
+            }
+            return graphContainer.clientWidth || GRAPH_BASE_WIDTH;
+        }
+
+        function normalizeNodeXPercent(x) {
+            const numeric = Number(x);
+            if (Number.isNaN(numeric)) {
+                return 0;
+            }
+            if (numeric >= 0 && numeric <= 100) {
+                return numeric;
+            }
+            return Math.max(0, Math.min(100, (numeric / GRAPH_BASE_WIDTH) * 100));
+        }
+
+        function getNodeLeftFromPercent(xPercent) {
+            const usableWidth = getGraphUsableWidth();
+            const maxLeft = Math.max(usableWidth - NODE_SIZE, 0);
+            return (Math.max(0, Math.min(100, xPercent)) / 100) * maxLeft;
+        }
+
+        function updateNodeHorizontalPosition(nodeData) {
+            nodeData.x = getNodeLeftFromPercent(nodeData.xPercent);
+            nodeData.wrapper.style.left = nodeData.x + 'px';
+        }
+
+        function updateAllNodePositions() {
+            nodeRegistry.forEach(function (node) {
+                updateNodeHorizontalPosition(node);
+                if (node.wrapper.classList.contains('is-hovering') ||
+                    node.wrapper.classList.contains('is-expanded')) {
+                    applyNodeExpansion(node);
+                }
+            });
         }
 
         function isDesktopHover() {
@@ -1068,24 +1111,7 @@
             nodeRegistry.forEach(function (node) {
                 width = Math.max(width, measureNodeRightEdge(node));
             });
-            width += GRAPH_RIGHT_PADDING;
-
-            for (let pass = 0; pass < 10; pass++) {
-                graphContainer.style.width = width + 'px';
-                let maxRight = 0;
-
-                nodeRegistry.forEach(function (node) {
-                    maxRight = Math.max(maxRight, measureNodeRightEdge(node));
-                });
-
-                const nextWidth = maxRight + GRAPH_RIGHT_PADDING;
-                if (nextWidth <= width) {
-                    return nextWidth;
-                }
-                width = nextWidth;
-            }
-
-            return width;
+            return width + GRAPH_RIGHT_PADDING;
         }
 
         /* Ajuste le graphe : largeur plein écran, hauteur par défilement (téléphone) */
@@ -1098,23 +1124,17 @@
                 graphContainer.style.marginLeft = '';
                 graphContainer.style.transform = '';
                 graphViewport.style.height = '';
+                updateAllNodePositions();
                 return;
             }
 
-            const graphContentWidth = getGraphContentWidth();
-            graphContainer.style.width = graphContentWidth + 'px';
-
-            const contentHeight = graphContainer.offsetHeight ||
-                parseInt(nodesLayer.style.minHeight, 10) ||
-                400;
-            const availableWidth = graphViewport.clientWidth;
-            const scale = availableWidth / graphContentWidth;
-
-            graphContainer.style.left = '50%';
+            const usableWidth = graphViewport.clientWidth;
+            graphContainer.style.width = usableWidth + 'px';
+            graphContainer.style.left = '0';
             graphContainer.style.marginLeft = '0';
-            graphContainer.style.transform = 'translateX(-50%) scale(' + scale + ')';
-            graphContainer.style.transformOrigin = 'top center';
-            graphViewport.style.height = Math.ceil(contentHeight * scale) + 'px';
+            graphContainer.style.transform = '';
+            graphViewport.style.height = '';
+            updateAllNodePositions();
         }
 
         function collapseAllExpandedNodes() {
@@ -1231,14 +1251,14 @@
 
             const wrapper = document.createElement('div');
             wrapper.className = 'node-wrapper';
-            wrapper.style.left = x + 'px';
             wrapper.style.top = y + 'px';
             wrapper.dataset.code = code;
 
             const nodeData = {
                 code: code,
                 title: title,
-                x: x,
+                xPercent: normalizeNodeXPercent(x),
+                x: 0,
                 y: y,
                 prerequisites: prerequisites.slice(),
                 wrapper: wrapper,
@@ -1252,6 +1272,7 @@
                 imageUrl: null
             };
 
+            updateNodeHorizontalPosition(nodeData);
             renderNodeElement(nodeData);
             setupNodeInteractions(nodeData);
 
@@ -1477,9 +1498,7 @@
         function updateExpandDirection(nodeData) {
             if (!nodeData.unlockedElement) return;
 
-            const containerWidth = isMobileLayout()
-                ? (parseFloat(graphContainer.style.width) || getGraphContentWidth())
-                : (graphContainer.clientWidth || 1300);
+            const containerWidth = getGraphUsableWidth();
             const nodeCenterX = nodeData.x + NODE_SIZE / 2;
             const spaceLeft = nodeCenterX;
             const spaceRight = containerWidth - nodeCenterX;
@@ -1770,6 +1789,7 @@
         }
 
         window.addEventListener('resize', function () {
+            applyMobileGraphFit();
             nodeRegistry.forEach(function (node) {
                 measureLevelsExpandWidth(node);
                 if (node.wrapper.classList.contains('is-hovering') ||
@@ -1778,7 +1798,6 @@
                 }
             });
             drawConnections();
-            applyMobileGraphFit();
         });
 
 
@@ -1800,6 +1819,7 @@
          *  ÉTAPE 1 — Modifier les nœuds ici
          *
          *  createNode(code, titre, x, y, [prérequis]);
+         *  x est un pourcentage de la largeur de la zone brune (0 = bord gauche, 100 = bord droit) ; y reste en pixels.
          *  Sans prérequis [] → déverrouillé dès la création ; le niveau 1 ne compte pas pour l'XP.
          *  Avec prérequis     → verrouillé (rouge ou orange foncé si prêts).
          *
@@ -1808,7 +1828,7 @@
 
 
 
-        createNode('12Pemdas', 'Priorités des opérations', 536, 60, []);
+        createNode('12Pemdas', 'Priorités des opérations', 50, 60, []);
         setNodeLevels('12Pemdas', [
             { number: 1, title: '4 opérations de base' },
             { number: 2, title: 'Avec des puissances' },
@@ -1830,7 +1850,7 @@
         
         
         
-        createNode('12P', 'Puissances naturelles', 900, 460, ['12Pemdas']);
+        createNode('12P', 'Puissances naturelles', 85, 460, ['12Pemdas']);
         setNodeLevels('12P', [
             { number: 1, title: 'Initiation' },
             { number: 2, title: 'Confirmé' }
