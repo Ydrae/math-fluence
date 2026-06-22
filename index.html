@@ -751,7 +751,7 @@
                 padding: 0 2px;
             }
 
-            /* Vue d'ensemble du graphe sans dézoom manuel */
+            /* Zone brune pleine largeur (petit padding) ; hauteur par défilement */
             #graph-viewport {
                 width: calc(100vw - 8px);
                 margin: 0 4px;
@@ -762,7 +762,6 @@
 
             #graph-container {
                 max-width: none;
-                width: 1100px;
                 margin: 0;
                 left: 50%;
                 transform-origin: top center;
@@ -843,13 +842,63 @@
             }
 
             .modal--unlock {
-                width: calc(100vw - 16px);
-                max-width: none;
+                width: fit-content;
+                max-width: calc(100vw - 32px);
+                min-width: 0;
+                padding: 14px 16px 12px;
+                border-width: 2px;
             }
 
             .modal--unlock h2 {
                 white-space: nowrap;
-                font-size: 15px;
+                font-size: 13px;
+                margin-bottom: 12px;
+                padding-right: 28px;
+            }
+
+            .modal--unlock .modal__close {
+                top: 4px;
+                right: 4px;
+                width: 32px;
+                height: 32px;
+                font-size: 22px;
+            }
+
+            .modal--unlock .btn-debloquer {
+                padding: 10px 12px;
+                font-size: 14px;
+                margin-bottom: 14px;
+                gap: 8px;
+            }
+
+            .modal--unlock .btn-debloquer__icon {
+                width: 18px;
+                height: 18px;
+            }
+
+            .modal--unlock .unlock-code-row {
+                gap: 6px;
+            }
+
+            .modal--unlock .unlock-code-row label {
+                font-size: 13px;
+            }
+
+            .modal--unlock .unlock-code-row input {
+                width: 88px;
+                padding: 7px 8px;
+                font-size: 13px;
+            }
+
+            .modal--unlock .btn-validate-code {
+                padding: 7px 10px;
+                font-size: 12px;
+            }
+
+            .modal--unlock .unlock-error {
+                font-size: 12px;
+                margin-top: 8px;
+                min-height: 16px;
             }
 
             .modal--content {
@@ -978,7 +1027,8 @@
         const NODE_SIZE = 224;
         const BADGE_TOTAL_HEIGHT = 44;
         const GRAPH_BOTTOM_PADDING = 120;
-        const GRAPH_DESIGN_WIDTH = 1100;
+        /* Marge à droite du nœud le plus à droite (largeur zone brune mobile) */
+        const GRAPH_RIGHT_PADDING = 40;
         /* Modifier l'espace après les titres de niveaux au survol ici */
         const LEVELS_EXPAND_EXTRA = 32;
 
@@ -990,11 +1040,60 @@
             return window.matchMedia('(hover: hover) and (pointer: fine)').matches;
         }
 
-        /* Ajuste le graphe pour afficher tous les nœuds sans dézoom manuel (téléphone) */
+        function measureNodeRightEdge(node) {
+            let right = Number(node.x) + NODE_SIZE;
+
+            const wrapperLeft = parseFloat(node.wrapper.style.left);
+            const left = isNaN(wrapperLeft) ? Number(node.x) : wrapperLeft;
+            const wrapperWidth = node.wrapper.offsetWidth || NODE_SIZE;
+            right = Math.max(right, left + wrapperWidth);
+
+            if (node.wrapper.scrollWidth > wrapperWidth) {
+                right = Math.max(right, left + node.wrapper.scrollWidth);
+            }
+
+            if (node.state === NODE_STATE.UNLOCKED) {
+                measureLevelsExpandWidth(node);
+                const expandW = node.levelsExpandWidth || 0;
+                right = Math.max(right, Number(node.x) + NODE_SIZE + expandW);
+            }
+
+            return right;
+        }
+
+        /* Largeur utile du graphe : englobe tous les nœuds avec une marge à droite */
+        function getGraphContentWidth() {
+            let width = NODE_SIZE;
+
+            nodeRegistry.forEach(function (node) {
+                width = Math.max(width, measureNodeRightEdge(node));
+            });
+            width += GRAPH_RIGHT_PADDING;
+
+            for (let pass = 0; pass < 10; pass++) {
+                graphContainer.style.width = width + 'px';
+                let maxRight = 0;
+
+                nodeRegistry.forEach(function (node) {
+                    maxRight = Math.max(maxRight, measureNodeRightEdge(node));
+                });
+
+                const nextWidth = maxRight + GRAPH_RIGHT_PADDING;
+                if (nextWidth <= width) {
+                    return nextWidth;
+                }
+                width = nextWidth;
+            }
+
+            return width;
+        }
+
+        /* Ajuste le graphe : largeur plein écran, hauteur par défilement (téléphone) */
         function applyMobileGraphFit() {
             if (!graphViewport) return;
 
             if (!isMobileLayout()) {
+                graphContainer.style.width = '';
                 graphContainer.style.left = '';
                 graphContainer.style.marginLeft = '';
                 graphContainer.style.transform = '';
@@ -1002,17 +1101,14 @@
                 return;
             }
 
+            const graphContentWidth = getGraphContentWidth();
+            graphContainer.style.width = graphContentWidth + 'px';
+
             const contentHeight = graphContainer.offsetHeight ||
                 parseInt(nodesLayer.style.minHeight, 10) ||
                 400;
             const availableWidth = graphViewport.clientWidth;
-            const reservedTop = 118;
-            const availableHeight = Math.max(window.innerHeight - reservedTop, 280);
-            const scale = Math.min(
-                availableWidth / GRAPH_DESIGN_WIDTH,
-                availableHeight / contentHeight,
-                1
-            );
+            const scale = availableWidth / graphContentWidth;
 
             graphContainer.style.left = '50%';
             graphContainer.style.marginLeft = '0';
@@ -1106,6 +1202,10 @@
                 nodeData.wrapper.style.left = (nodeData.x + NODE_SIZE - totalW) + 'px';
             } else {
                 nodeData.wrapper.style.left = nodeData.x + 'px';
+            }
+
+            if (isMobileLayout()) {
+                applyMobileGraphFit();
             }
         }
 
@@ -1365,6 +1465,9 @@
         function collapseNodeWrapper(nodeData) {
             nodeData.wrapper.classList.remove('is-expanded');
             resetExpandedLayout(nodeData);
+            if (isMobileLayout()) {
+                applyMobileGraphFit();
+            }
         }
 
         /*
@@ -1374,7 +1477,9 @@
         function updateExpandDirection(nodeData) {
             if (!nodeData.unlockedElement) return;
 
-            const containerWidth = graphContainer.clientWidth || 1100;
+            const containerWidth = isMobileLayout()
+                ? (parseFloat(graphContainer.style.width) || getGraphContentWidth())
+                : (graphContainer.clientWidth || 1300);
             const nodeCenterX = nodeData.x + NODE_SIZE / 2;
             const spaceLeft = nodeCenterX;
             const spaceRight = containerWidth - nodeCenterX;
@@ -1884,3 +1989,14 @@
 
 </body>
 </html>
+
+<!-- Toujours en modifiant uniquement index.html et sans toucher à la version ordinateur, apporte les modifications suivantes.
+
+Le problème n'est pas réglé, voici comment on va le résoudre :
+
+Repense le code de sorte que la position horizontale d'un noeud soit en % de la largeur de la zone brune. 0 correspondant à ce que le cercle touche le bord gauche de la zone brune, 100 correspondant à ce que le cercle touche le bord droit de la zone brune.
+En revanche, la position verticale doit toujours être en pixel.
+
+L'astuce étant que ce pourcentage détermine une position différente selon que la vue soit en ordinateur ou en mobile.
+
+Autrement formulé, puisqu'on n'arrive pas à adapter la zone brune, adaptons la position des noeuds. ça implique donc que la largeur de la zone brune soit fixée (et corresponde toujours à la largeur de la vue, plus le padding gauche droite) -->
