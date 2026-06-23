@@ -191,6 +191,7 @@
             min-height: 400px;
             max-width: 1300px; /* était 1100 */
             margin: 0 auto;
+            --node-size: 98%;
             background-color: #e4d9c8;
             background-image:
                 radial-gradient(ellipse 120% 80% at 15% 20%, rgba(210, 186, 150, 0.45) 0%, transparent 55%),
@@ -262,7 +263,7 @@
 
         .node-wrapper {
             position: absolute;
-            width: 224px;
+            width: var(--node-size);
             z-index: 2;
             overflow: visible;
             transition:
@@ -319,20 +320,20 @@
         /* --- Nœud verrouillé --- */
         /* Modifier la couleur rouge des nœuds verrouillés ici */
         .node--locked {
-            width: 224px;
-            height: 224px;
+            width: var(--node-size);
+            height: var(--node-size);
             border-radius: 50%;
             background-color: #e53935;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: clamp(12px, calc(var(--node-size) * 0.08), 18px);
             font-weight: bold;
             color: #fff;
             cursor: pointer;
             user-select: none;
             text-align: center;
-            padding: 20px 18px;
+            padding: clamp(10px, calc(var(--node-size) * 0.08), 20px) clamp(9px, calc(var(--node-size) * 0.08), 18px);
             line-height: 1.28;
             hyphens: auto;
             overflow-wrap: break-word;
@@ -357,8 +358,8 @@
         .node-unlocked {
             display: flex;
             align-items: center;
-            height: 224px;
-            width: 224px;
+            height: var(--node-size);
+            width: var(--node-size);
             border-radius: 999px;
             background-color: #43a047;
             overflow: hidden;
@@ -384,21 +385,21 @@
 
         .node-wrapper.is-expanded .node-unlocked,
         .node-wrapper.is-hovering .node-unlocked {
-            width: calc(224px + var(--levels-expand, 0px));
+            width: calc(var(--node-size) + var(--levels-expand, 0px));
         }
 
         .node-disk {
-            flex: 0 0 224px;
-            width: 224px;
-            height: 224px;
+            flex: 0 0 var(--node-size);
+            width: var(--node-size);
+            height: var(--node-size);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: clamp(12px, calc(var(--node-size) * 0.08), 18px);
             font-weight: bold;
             color: #fff;
             text-align: center;
-            padding: 20px 18px;
+            padding: clamp(10px, calc(var(--node-size) * 0.08), 20px) clamp(9px, calc(var(--node-size) * 0.08), 18px);
             line-height: 1.28;
             hyphens: auto;
             overflow-wrap: break-word;
@@ -824,11 +825,11 @@
             /* Extension au tap uniquement (pas au survol) */
             .node-wrapper.is-hovering .node-unlocked,
             .node-wrapper.is-hovering .node-levels {
-                width: 224px;
+                width: var(--node-size);
             }
 
             .node-wrapper.is-hovering .node-unlocked {
-                width: 224px;
+                width: var(--node-size);
             }
 
             .node-wrapper.is-hovering .node-levels,
@@ -839,6 +840,61 @@
                 opacity: 0;
                 visibility: hidden;
                 padding: 0;
+            }
+
+            .node-wrapper.is-expanded .node-unlocked {
+                width: calc(var(--node-size) + var(--levels-expand, 0px)) !important;
+            }
+
+            .node-wrapper.is-expanded .node-levels,
+            .node-wrapper.is-expanded .node-unlocked.expand-right .node-levels,
+            .node-wrapper.is-expanded .node-unlocked.expand-left .node-levels {
+                flex: 0 0 var(--levels-expand, 0px) !important;
+                width: var(--levels-expand, 0px) !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                padding: 8px 16px 8px 6px !important;
+            }
+
+            .node-wrapper.is-expanded .node-unlocked.expand-left .node-levels {
+                padding: 8px 6px 8px 16px !important;
+            }
+
+            .level-chip {
+                padding: 5px 7px !important;
+                gap: 5px !important;
+                font-size: 10px !important;
+                min-width: 0 !important;
+            }
+
+            .level-chip__number {
+                font-size: 11px !important;
+                min-width: 14px !important;
+            }
+
+            .level-chip__title {
+                font-size: 10px !important;
+                line-height: 1.2 !important;
+            }
+
+            .node-levels {
+                width: auto !important;
+                flex: 0 0 auto !important;
+                padding: 0 !important;
+            }
+
+            .node-unlocked {
+                width: auto !important;
+            }
+
+            .node-wrapper.is-expanded .node-unlocked {
+                width: calc(var(--node-size) + var(--levels-expand, 0px)) !important;
+            }
+
+            .node-wrapper.is-expanded .node-levels,
+            .node-wrapper.is-expanded .node-unlocked.expand-right .node-levels,
+            .node-wrapper.is-expanded .node-unlocked.expand-left .node-levels {
+                width: var(--levels-expand, 0px) !important;
             }
 
             .modal--unlock {
@@ -994,6 +1050,13 @@
 
         const NODE_STATE = { LOCKED: 'locked', UNLOCKED: 'unlocked' };
 
+        const NODE_SIZE_RATIO = 0.18;
+        const BADGE_TOTAL_HEIGHT = 44;
+        const GRAPH_BOTTOM_PADDING = 120;
+        /* Marge à droite du nœud le plus à droite (largeur zone brune mobile) */
+        const GRAPH_RIGHT_PADDING = 40;
+        const GRAPH_BASE_WIDTH = 1300;
+
         /* Modifier les constantes d'expérience ici */
         const XP_PER_NODE_LEVEL = 600;
         const XP_PER_USER_LEVEL = 1000;
@@ -1024,12 +1087,6 @@
         const xpTextEl = document.getElementById('xp-text');
         const streakCountEl = document.getElementById('streak-count');
 
-        const NODE_SIZE = 224;
-        const BADGE_TOTAL_HEIGHT = 44;
-        const GRAPH_BOTTOM_PADDING = 120;
-        /* Marge à droite du nœud le plus à droite (largeur zone brune mobile) */
-        const GRAPH_RIGHT_PADDING = 40;
-        const GRAPH_BASE_WIDTH = 1300;
         /* Modifier l'espace après les titres de niveaux au survol ici */
         const LEVELS_EXPAND_EXTRA = 32;
 
@@ -1042,9 +1099,21 @@
                 return GRAPH_BASE_WIDTH;
             }
             if (isMobileLayout()) {
-                return graphViewport ? graphViewport.clientWidth : GRAPH_BASE_WIDTH;
+                return GRAPH_BASE_WIDTH;
             }
             return graphContainer.clientWidth || GRAPH_BASE_WIDTH;
+        }
+
+        function getNodeSize() {
+            const usableWidth = getGraphUsableWidth();
+            return Math.max(120, usableWidth * NODE_SIZE_RATIO);
+        }
+
+        function setGraphNodeSizeVariable() {
+            const nodeSize = getNodeSize();
+            if (graphContainer) {
+                graphContainer.style.setProperty('--node-size', nodeSize + 'px');
+            }
         }
 
         function normalizeNodeXPercent(x) {
@@ -1060,7 +1129,8 @@
 
         function getNodeLeftFromPercent(xPercent) {
             const usableWidth = getGraphUsableWidth();
-            const maxLeft = Math.max(usableWidth - NODE_SIZE, 0);
+            const nodeSize = getNodeSize();
+            const maxLeft = Math.max(usableWidth - nodeSize, 0);
             return (Math.max(0, Math.min(100, xPercent)) / 100) * maxLeft;
         }
 
@@ -1084,11 +1154,12 @@
         }
 
         function measureNodeRightEdge(node) {
-            let right = Number(node.x) + NODE_SIZE;
+            const nodeSize = getNodeSize();
+            let right = Number(node.x) + nodeSize;
 
             const wrapperLeft = parseFloat(node.wrapper.style.left);
             const left = isNaN(wrapperLeft) ? Number(node.x) : wrapperLeft;
-            const wrapperWidth = node.wrapper.offsetWidth || NODE_SIZE;
+            const wrapperWidth = node.wrapper.offsetWidth || nodeSize;
             right = Math.max(right, left + wrapperWidth);
 
             if (node.wrapper.scrollWidth > wrapperWidth) {
@@ -1098,7 +1169,7 @@
             if (node.state === NODE_STATE.UNLOCKED) {
                 measureLevelsExpandWidth(node);
                 const expandW = node.levelsExpandWidth || 0;
-                right = Math.max(right, Number(node.x) + NODE_SIZE + expandW);
+                right = Math.max(right, Number(node.x) + nodeSize + expandW);
             }
 
             return right;
@@ -1106,7 +1177,7 @@
 
         /* Largeur utile du graphe : englobe tous les nœuds avec une marge à droite */
         function getGraphContentWidth() {
-            let width = NODE_SIZE;
+            let width = getNodeSize();
 
             nodeRegistry.forEach(function (node) {
                 width = Math.max(width, measureNodeRightEdge(node));
@@ -1118,22 +1189,56 @@
         function applyMobileGraphFit() {
             if (!graphViewport) return;
 
+            setGraphNodeSizeVariable();
+
             if (!isMobileLayout()) {
                 graphContainer.style.width = '';
                 graphContainer.style.left = '';
                 graphContainer.style.marginLeft = '';
                 graphContainer.style.transform = '';
+                graphContainer.style.transformOrigin = '';
                 graphViewport.style.height = '';
+                // restore normal viewport scaling
+                const meta = document.querySelector('meta[name=viewport]');
+                if (meta) meta.setAttribute('content', 'width=device-width, initial-scale=1.0');
                 updateAllNodePositions();
                 return;
             }
 
-            const usableWidth = graphViewport.clientWidth;
-            graphContainer.style.width = usableWidth + 'px';
+            // Mobile: keep the brown work area at a fixed base width
+            const baseWidth = GRAPH_BASE_WIDTH;
+            graphContainer.style.width = baseWidth + 'px';
+            graphContainer.style.transformOrigin = 'top left';
             graphContainer.style.left = '0';
-            graphContainer.style.marginLeft = '0';
-            graphContainer.style.transform = '';
+            graphContainer.style.margin = '0';
+            graphContainer.style.position = 'relative';
+
+            // Compute scale so the brown work area plus horizontal padding/margins fits in the viewport initially
+            const vpWidth = graphViewport.clientWidth || window.innerWidth;
+            const vpStyle = window.getComputedStyle(graphViewport);
+            const paddingLeft = parseFloat(vpStyle.paddingLeft) || 0;
+            const paddingRight = parseFloat(vpStyle.paddingRight) || 0;
+            const marginLeft = parseFloat(vpStyle.marginLeft) || 0;
+            const marginRight = parseFloat(vpStyle.marginRight) || 0;
+            const horizontalExtra = paddingLeft + paddingRight + marginLeft + marginRight;
+            const desiredWidth = baseWidth +0*horizontalExtra;
+            const scale = Math.min(1, vpWidth / desiredWidth);
+
+            const offset = Math.max(0, (vpWidth - (baseWidth * scale)) / 2);
+            const translateX = offset / Math.max(scale, 0.0001);
+            graphContainer.style.transform = 'translateX(' + translateX + 'px) scale(' + scale + ')';
+            if (graphViewport && graphViewport.style) {
+                graphViewport.style.overflow = 'hidden';
+            }
+
+            // Prevent the user from zooming out past the initial view
+            const meta = document.querySelector('meta[name=viewport]');
+            if (meta) {
+                meta.setAttribute('content', 'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=3');
+            }
+
             graphViewport.style.height = '';
+            setGraphNodeSizeVariable();
             updateAllNodePositions();
         }
 
@@ -1213,19 +1318,27 @@
 
             updateExpandDirection(nodeData);
             const expandW = measureLevelsExpandWidth(nodeData);
-            const totalW = NODE_SIZE + expandW;
+            const nodeSize = getNodeSize();
+            const totalW = nodeSize + expandW;
 
             nodeData.unlockedElement.style.setProperty('--levels-expand', expandW + 'px');
             nodeData.wrapper.style.width = totalW + 'px';
+            nodeData.unlockedElement.style.width = totalW + 'px';
 
             if (nodeData.expandDirection === 'left') {
-                nodeData.wrapper.style.left = (nodeData.x + NODE_SIZE - totalW) + 'px';
+                nodeData.wrapper.style.left = (nodeData.x + nodeSize - totalW) + 'px';
             } else {
                 nodeData.wrapper.style.left = nodeData.x + 'px';
             }
 
-            if (isMobileLayout()) {
-                applyMobileGraphFit();
+            if (nodeData.levelsPanel) {
+                nodeData.levelsPanel.style.flex = '0 0 ' + expandW + 'px';
+                nodeData.levelsPanel.style.width = expandW + 'px';
+                nodeData.levelsPanel.style.opacity = '1';
+                nodeData.levelsPanel.style.visibility = 'visible';
+                nodeData.levelsPanel.style.padding = nodeData.expandDirection === 'left'
+                    ? '12px 10px 12px 32px'
+                    : '12px 32px 12px 10px';
             }
         }
 
@@ -1235,6 +1348,14 @@
             nodeData.wrapper.style.left = nodeData.x + 'px';
             if (nodeData.unlockedElement) {
                 nodeData.unlockedElement.style.removeProperty('--levels-expand');
+                nodeData.unlockedElement.style.width = '';
+            }
+            if (nodeData.levelsPanel) {
+                nodeData.levelsPanel.style.flex = '';
+                nodeData.levelsPanel.style.width = '';
+                nodeData.levelsPanel.style.opacity = '';
+                nodeData.levelsPanel.style.visibility = '';
+                nodeData.levelsPanel.style.padding = '';
             }
         }
 
@@ -1269,7 +1390,8 @@
                 unlockUrl: '',
                 iframeByLevel: {},
                 expandDirection: 'right',
-                imageUrl: null
+                imageUrl: null,
+                justExpanded: false
             };
 
             updateNodeHorizontalPosition(nodeData);
@@ -1444,7 +1566,7 @@
         }
 
         function setupNodeInteractions(nodeData) {
-            nodeData.wrapper.addEventListener('click', function (event) {
+            function handleNodeActivation(event) {
                 if (nodeData.state === NODE_STATE.LOCKED) {
                     openUnlockModal(nodeData);
                     return;
@@ -1453,10 +1575,20 @@
 
                 if (isMobileLayout()) {
                     if (!nodeData.wrapper.classList.contains('is-expanded')) {
+                        event.preventDefault();
                         event.stopPropagation();
                         collapseAllExpandedNodes();
                         nodeData.wrapper.classList.add('is-expanded');
+                        nodeData.justExpanded = true;
+                        setTimeout(function () {
+                            nodeData.justExpanded = false;
+                        }, 250);
                         applyNodeExpansion(nodeData);
+                        return;
+                    }
+                    if (nodeData.justExpanded) {
+                        event.preventDefault();
+                        event.stopPropagation();
                         return;
                     }
                     if (event.target.closest('.node-disk')) {
@@ -1468,7 +1600,9 @@
                 if (event.target.closest('.node-disk')) {
                     openContentModal(nodeData, nodeData.currentLevel);
                 }
-            });
+            }
+
+            nodeData.wrapper.addEventListener('click', handleNodeActivation);
 
             if (isDesktopHover()) {
                 nodeData.wrapper.addEventListener('mouseenter', function () {
@@ -1499,7 +1633,8 @@
             if (!nodeData.unlockedElement) return;
 
             const containerWidth = getGraphUsableWidth();
-            const nodeCenterX = nodeData.x + NODE_SIZE / 2;
+            const nodeSize = getNodeSize();
+            const nodeCenterX = nodeData.x + nodeSize / 2;
             const spaceLeft = nodeCenterX;
             const spaceRight = containerWidth - nodeCenterX;
 
@@ -1745,10 +1880,11 @@
         /* --- Connexions et taille adaptative du fond blanc --- */
         function refreshGraphSize() {
             let maxBottom = 400;
+            const nodeSize = getNodeSize();
 
             nodeRegistry.forEach(function (node) {
                 const badgeOffset = node.state === NODE_STATE.UNLOCKED ? BADGE_TOTAL_HEIGHT : 0;
-                const bottom = node.y + badgeOffset + NODE_SIZE + GRAPH_BOTTOM_PADDING;
+                const bottom = node.y + badgeOffset + nodeSize + GRAPH_BOTTOM_PADDING;
                 if (bottom > maxBottom) maxBottom = bottom;
             });
 
@@ -1756,6 +1892,7 @@
             dividersLayer.style.height = maxBottom + 'px';
             connectionsSvg.setAttribute('height', maxBottom);
             graphContainer.style.minHeight = maxBottom + 'px';
+            setGraphNodeSizeVariable();
             applyMobileGraphFit();
         }
 
@@ -1781,14 +1918,16 @@
         }
 
         function getNodeConnectionPoint(nodeData) {
+            const nodeSize = getNodeSize();
             const badgeOffset = nodeData.state === NODE_STATE.UNLOCKED ? BADGE_TOTAL_HEIGHT : 0;
             return {
-                x: nodeData.x + NODE_SIZE / 2,
-                y: nodeData.y + badgeOffset + NODE_SIZE / 2
+                x: nodeData.x + nodeSize / 2,
+                y: nodeData.y + badgeOffset + nodeSize / 2
             };
         }
 
         window.addEventListener('resize', function () {
+            setGraphNodeSizeVariable();
             applyMobileGraphFit();
             nodeRegistry.forEach(function (node) {
                 measureLevelsExpandWidth(node);
