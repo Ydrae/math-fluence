@@ -1989,19 +1989,27 @@
         
         
         
-        createNode('12P', 'Puissances naturelles', 85, 460, ['12Pemdas']);
+        createNode('12P', 'Puissances naturelles', 90, 460, ['12Pemdas']);
         setNodeLevels('12P', [
-            { number: 1, title: 'Initiation' },
-            { number: 2, title: 'Confirmé' }
+            { number: 1, title: 'Puissance d\'un nombre'},
+            { number: 2, title: 'Puissances de même base' },
+            { number: 3, title: 'Puissance d\'un produit ou quotient'},
+            { number: 4, title: 'Simplification de puissances'}
         ]);
         setUnlockUrl('12P', 'https://numbas.mathcentre.ac.uk/exam/48696/deblocage-puissances-naturelles/embed/');
         setUnlockCode('12P', 'Bruce');
-        setNodeIframe('12P', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
-        setNodeIframe('12P', 2, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        // 3C10-1 (exposants positifs), 4C32-0 (exposants positifs), 2N31-7 (moyen, exposants élevés)
+        setNodeIframe('12P', 1, 'https://coopmaths.fr/alea/?uuid=eb865&id=3C10-1&n=4&d=10&s=1&i=1&cd=1&tip=0&uuid=5d72b&id=4C32-0&n=4&d=10&s=1&i=1&cd=1&tip=0&uuid=f49ff&id=2N31-7&n=4&d=10&s=2&s2=true&i=1&cd=1&tip=0&v=eleve&es=21100000&title=Puissance%2520d%27un%2520nombre');
+        // 	4C33-1 option 1-2-3
+        setNodeIframe('12P', 2, 'https://coopmaths.fr/alea/?uuid=bae57&id=4C33-1&n=8&d=10&s=1-2-3&s2=1&i=1&cd=1&tip=0&v=eleve&es=21100000&title=Puissances%2520de%2520m%25C3%25AAme%2520base.%2520Tapez%2520%255E%2520pour%2520exposant');
+        // 	4C33-1 option 4 et 5, 1A-C03-15, 1A-C03-4
+        setNodeIframe('12P', 3, 'https://coopmaths.fr/alea/?uuid=bae57&id=4C33-1&n=6&d=10&s=4-5&s2=1&i=1&cd=1&tip=0&uuid=b37ab&id=1A-C03-4&n=2&d=10&s=false&s2=false&s4=false&i=1&cd=1&tip=0&uuid=c091a&id=1A-C03-15&n=2&d=10&s=false&s2=false&s4=false&i=1&cd=1&tip=0&v=eleve&es=21100000&title=Puissance%2520de%2520produit%2520ou%2520quotient.%2520Tapez%2520%255E%2520pour%2520exposant');
+        // 4C33-1 option 6, 3C1QCM-05, 2N31-5 (mélange et correction détaillée), 2N31-3
+        setNodeIframe('12P', 4, 'https://coopmaths.fr/alea/?uuid=bae57&id=4C33-1&n=4&d=10&s=6&s2=1&i=1&cd=1&tip=0&uuid=44f7a&id=3C1QCM-05&n=1&d=10&s=false&s2=false&s4=false&i=1&cd=1&tip=0&uuid=6b2e5&id=2N31-5&n=4&d=10&s=3&s2=4&s3=false&i=1&cd=1&tip=0&uuid=c71da&id=2N31-3&n=6&d=10&i=1&cd=1&tip=0&v=eleve&es=21100000&title=Simplification%2520de%2520puissances.%2520Tapez%2520%255E%2520pour%2520exposant');
         
 
 
-        createNode('12F', "Facteurs premiers", 530, 820, []);
+        createNode('12F', "Facteurs premiers", 57, 780, []);
         setNodeLevels('12F', [
             { number: 1, title: 'Décomposition en facteurs premiers' },
             { number: 2, title: 'PH2'}
@@ -2059,7 +2067,7 @@
 
 
 
-        createNode('12FS', 'Simplification de fractions', 540, 1500, ['12FX', '12F']);
+        createNode('12FS', 'Simplification de fractions', 47, 1500, ['12FX', '12F']);
         setNodeLevels('12FS', [
             { number: 1, title: 'Découverte' },
             { number: 2, title: 'Entraînement' },
@@ -2088,7 +2096,7 @@
 
 
 
-        createNode('12CL', "Calcul littéral", 865, 2300, ['12P','12FA']);
+        createNode('12CL', "Calcul littéral", 87, 2300, ['12P','12FA']);
         setNodeLevels('12CL', [
             { number: 1, title: 'PH1' },
             { number: 2, title: 'PH2'}
@@ -2096,7 +2104,7 @@
         setNodeIframe('12CL', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
 
 
-        createNode('12DME', "Distributivité et mise en évidence", 215, 2570, ['12CL']);
+        createNode('12DME', "Distributivité et mise en évidence", 215, 2650, ['12CL']);
         setNodeLevels('12DME', [
             { number: 1, title: 'PH1' },
             { number: 2, title: 'PH2'}
@@ -2105,7 +2113,7 @@
 
 
 
-        createNode('12EQ1', "Équations du premier degré", 536, 3000, ['12DME','12CL']);
+        createNode('12EQ1', "Équations du premier degré", 55, 3000, ['12DME','12CL']);
         setNodeLevels('12EQ1', [
             { number: 1, title: 'PH1' },
             { number: 2, title: 'PH2'}
@@ -2113,7 +2121,7 @@
         setNodeIframe('12EQ1', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
 
         
-        createNode('12PR', "Produits remarquables", 178, 3400, ['12EQ1']);
+        createNode('12PR', "Produits remarquables", 7, 3400, ['12EQ1']);
         setNodeLevels('12PR', [
             { number: 1, title: 'PH1' },
             { number: 2, title: 'PH2'}
@@ -2121,7 +2129,7 @@
         setNodeIframe('12PR', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
 
 
-        createNode('12Facto', "Factorisation", 950, 3600, ['12PR']);
+        createNode('12Facto', "Factorisation", 95, 3600, ['12PR']);
         setNodeLevels('12Facto', [
             { number: 1, title: 'PH1' },
             { number: 2, title: 'PH2'}
