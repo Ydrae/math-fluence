@@ -2098,10 +2098,22 @@
 
         createNode('12EQ1', "Équations du premier degré", 55, 2700, ['12DME','12CL']);
         setNodeLevels('12EQ1', [
-            { number: 1, title: 'PH1' },
-            { number: 2, title: 'PH2'}
+            { number: 1, title: 'Une opération' },
+            { number: 2, title: 'Plusieurs opérations'},
+            { number: 3, title: 'Plusieurs fois la même inconnue'},
+            { number: 4, title: 'Équations du premier degré variées'},
+            { number: 5, title: 'Multiplier par la variable ou inverser'}
         ]);
-        setNodeIframe('12EQ1', 1, 'https://coopmaths.fr/alea/?uuid=da45c&id=CM1C1E&alea=qiZs&uuid=mp45c&id=CM1C1F&alea=1E4M&v=eleve&es=22110011');
+        // can4L01 (type 1, avec relatifs, corr détaillée)
+        setNodeIframe('12EQ1', 1, 'https://coopmaths.fr/alea/?uuid=0641c&id=can4L01&n=5&d=10&s=true&s2=1&cd=1&tip=0&v=eleve&es=21100000&title=Une%2520op%25C3%25A9rations');
+        // can4L01 (type 2, avec relatifs, corr détaillée), can2L23, can2L08
+        setNodeIframe('12EQ1', 2, 'https://coopmaths.fr/alea/?uuid=0641c&id=can4L01&n=5&d=10&s=true&s2=2&cd=1&tip=0&alea=NrxW&uuid=c1123&id=can2L08&n=5&d=10&qcm=0&i=1&cd=1&tip=0&alea=MMC3&uuid=eed98&id=can2L23&i=1&alea=H8r2&v=eleve&es=21100000&title=Plusieurs%2520op%25C3%25A9rations');
+        // can4L01 (type 3, avec relatifs, corr détaillée), 3L13-1 (type 4), 2N51-5 (type 4), 1A-C10-12
+        setNodeIframe('12EQ1', 3, 'https://coopmaths.fr/alea/?uuid=0641c&id=can4L01&n=5&d=10&s=false&s2=3&cd=1&tip=0&uuid=b81d0&id=3L13-1&n=3&d=10&s=4&s2=false&i=1&cd=1&tip=0&uuid=3b3d9&id=2N51-5&i=1&uuid=459d1&id=1A-C10-12&n=2&d=10&s=false&s2=true&s4=false&i=1&cd=1&tip=0&v=eleve&es=21100000&title=Plusieurs%2520fois%2520la%2520m%25C3%25AAme%2520inconnue');
+        // can4L01 (mélange), 4L29 (type 8), 3L13 (type 8)
+        setNodeIframe('12EQ1', 4, 'https://coopmaths.fr/alea/?uuid=0641c&id=can4L01&n=5&d=10&s=true&s2=4&i=1&cd=1&tip=0&uuid=799c4&id=4L20&n=5&d=10&s=true&s2=8&s3=true&i=1&cd=1&tip=0&uuid=f239f&id=3L13&n=5&d=10&s=true&s2=8&s3=false&i=1&cd=1&tip=0&v=eleve&es=21100000&title=%25C3%2589quations%2520du%2520premier%2520degr%25C3%25A9%2520vari%25C3%25A9es');
+        // 2N51-3a (relatifs), 2N52-5
+        setNodeIframe('12EQ1', 5, 'https://coopmaths.fr/alea/?uuid=7959f&id=2N51-3a&n=5&d=10&s=2&i=1&cd=1&tip=0&uuid=31017&id=2N52-5&n=5&d=10&s=3&i=1&cd=1&tip=0&v=eleve&es=21100000&title=Multiplier%2520par%2520la%2520variable%2520ou%2520inverser');
 
         
         createNode('12PR', "Produits remarquables", 7, 3100, ['12EQ1']);
