@@ -2126,7 +2126,9 @@
         setNodeIframe('12PR', 2, 'https://coopmaths.fr/alea/?uuid=04b0a&id=2N41-6&n=3&d=10&s=1&s2=3&i=1&cd=1&tip=0&uuid=04b0a&id=2N41-6&n=3&d=10&s=2&s2=3&i=1&cd=1&tip=0&uuid=04b0a&id=2N41-6&n=3&d=10&s=3&s2=3&i=1&cd=1&tip=0&v=eleve&es=21100000&title=Bin%25C3%25B4me%2520conjugu%25C3%25A9');
         setNodeIframe('12PR', 3, 'https://coopmaths.fr/alea/?uuid=7bd4f&id=2N41-6c&n=4&d=10&s=2&s2=4&s3=4&s4=4&i=1&cd=1&tip=0&uuid=889ef&id=2N41-10a&n=4&d=10&s=3-4-5-6-7-8-9-10&s2=false&s3=3&s4=true&i=1&cd=1&tip=0&uuid=1f3da&id=2N41-10b&n=4&d=10&s=3-4-5-6-7-8-9-10&s2=false&s3=3&s4=true&i=1&cd=1&tip=0&uuid=8f546&id=2N41-6d&n=4&d=10&s=2&s2=3&s3=4&s4=4&i=1&cd=1&tip=0&v=eleve&es=21100000&title=D%25C3%25A9velopper%2520des%2520expressions%2520vari%25C3%25A9es');
 
-        createNode('12Facto', "Factorisation", 95, 3300, ['12PR']);
+        createHorizontalLine(3370, 'Troisième année');
+
+        createNode('12Facto', "Factorisation", 95, 3450, ['12PR','12EQ1']);
         setNodeLevels('12Facto', [
             { number: 1, title: 'Une à la fois' },
             { number: 2, title: 'Plus complexes ou enchaînées'}
@@ -2135,7 +2137,229 @@
         setNodeIframe('12Facto', 2, 'https://coopmaths.fr/alea/?uuid=0bd00&id=2N41-7&n=5&d=10&s=3&i=1&cd=1&tip=0&uuid=47f20&id=2N41-2&n=5&d=10&s=1-2-3-4-5-6-8-9-10&i=1&cd=1&tip=0&uuid=c4b73&id=3L12-2&n=10&d=10&s=3&s2=2&s3=2&s4=2&s5=true&i=1&cd=1&tip=0&v=eleve&es=21100000&title=Plus%2520complexes%2520ou%2520encha%25C3%25AEn%25C3%25A9es%2520%28dernier%2520exercice%2520non%2520interactif%29');
 
 
-        createHorizontalLine(3600, 'Troisième année');
+        createNode('3SYS',"Systèmes linéaires", 65, 3800, ['12EQ1']);
+        setNodeLevels('3SYS',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('3SYS', 1, 'url');
+
+        createNode('3PE',"Puissances entières", 5, 4150, ['12PR']);
+        setNodeLevels('3PE',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('3PE', 1, 'url');
+
+        createNode('3Rac',"Racines carrées", 49, 4500, ['12PR','3PE']);
+        setNodeLevels('3Rac',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('3Rac', 1, 'url');
+
+        createNode('3FA',"Fractions algébriques", 95, 4900, ['12Facto']);
+        setNodeLevels('3FA',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('3FA', 1, 'url');
+        
+        createNode('3INEQ',"Inéquations du premier degré", 25, 5250, ['12EQ1']);
+        setNodeLevels('3INEQ',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('3INEQ', 1, 'url');
+
+        createHorizontalLine(5600, 'Quatrième année');
+        
+        createNode('4EQ2',"Équations du deuxième degré", 55, 5800, ['3Rac']);
+        setNodeLevels('4EQ2',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('4EQ2', 1, 'url');
+
+        createNode('4Facto2',"Factorisation du deuxième degré", 80, 6250, ['4EQ2','3FA']);
+        setNodeLevels('4Facto2',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('4Facto2', 1, 'url');
+
+        createNode('4INEQ2',"Inéquations du deuxième degré", 20, 6550, ['4Facto2','4EQ2','3INEQ']);
+        setNodeLevels('4INEQ2',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('4INEQ2', 1, 'url');
+
+        createHorizontalLine(6900,"Cinquième année")
+
+        createNode('5PR',"Puissances rationnelles", 5, 7000, ['3PE']);
+        setNodeLevels('5PR',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('5PR', 1, 'url');
+
+        createNode('5Lima',"Limites en un réel", 95, 7400, ['4Facto2','4INEQ2','3FA']);
+        setNodeLevels('5Lima',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('5Lima', 1, 'url');
+
+        createNode('5Liminf',"Limites en l'infini", 48, 7700, ['4Facto2']);
+        setNodeLevels('5Liminf',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('5Liminf', 1, 'url');
+
+        createNode('5COMP',"Composition de fonctions", 30, 8100, []);
+        setNodeLevels('5COMP',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('5COMP', 1, 'url');
+
+        createNode('5Deriv',"Dérivées", 70, 8600, ['5COMP','5PR','4INEQ2','4Facto2','5Lima']);
+        setNodeLevels('5Deriv',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('5Deriv', 1, 'url');
+
+
+        createHorizontalLine(9000,"Sixième année")
+
+
+        createNode('6Exp',"Exponentielles", 5, 9100, ['5PR']);
+        setNodeLevels('6Exp',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('6Exp2', 1, 'url');
+
+        createNode('6log',"Logarithmes", 55, 9550, ['6Exp','5COMP']);
+        setNodeLevels('6log',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('6log', 1, 'url');
+
+        createNode('6EQexplog',"Équations exp/log", 35, 10050, ['6log']);
+        setNodeLevels('4INEQ2',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('4INEQ2', 1, 'url');
+
+        createNode('6Derivexplog',"Dérivées exp/log", 80, 10350, ['5Deriv','6log']);
+        setNodeLevels('6Derivexplog',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('6Derivexplog', 1, 'url');
+
+        createNode('6Prim',"Primitives directes", 49, 10800, ['6Derivexplog']);
+        setNodeLevels('6Prim',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('6Prim', 1, 'url');
+
+
+        createNode('6Chgt',"Primitives par changement de variable", 15, 11150, ['6Prim']);
+        setNodeLevels('6Chgt',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('6Chgt', 1, 'url');
+
+        createNode('6Parties',"Primitives par parties", 85, 11150, ['6Chgt','6Prim']);
+        setNodeLevels('6Parties',[
+            { number: 1, title: 'Niveau 1'},
+            { number: 2, title: 'Niveau 2'},
+            { number: 3, title: 'Niveau 3'},
+            { number: 4, title: 'Niveau 4'},
+            { number: 5, title: 'Niveau 5'}
+        ]);
+        setNodeIframe('6Parties', 1, 'url');
+
+        createHorizontalLine(11450,"CESS")
+
+        // CANVAS
+        // createNode('code',"Titre", x, y, ['prerequis']);
+        // setNodeLevels('code',[
+        //     { number: 1, title: 'Niveau 1'},
+        //     { number: 2, title: 'Niveau 2'},
+        //     { number: 3, title: 'Niveau 3'},
+        //     { number: 4, title: 'Niveau 4'},
+        //     { number: 5, title: 'Niveau 5'}
+        // ]);
+        // setNodeIframe('code', 1, 'url');
+
+        
 
         /* -------------------------------------------------------------------
          *  ÉTAPE 6 — Modifier les images des nœuds ici (optionnel)
