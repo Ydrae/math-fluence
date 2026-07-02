@@ -2139,13 +2139,11 @@
 
         createNode('3SYS',"Systèmes linéaires", 65, 3800, ['12EQ1']);
         setNodeLevels('3SYS',[
-            { number: 1, title: 'Niveau 1'},
-            { number: 2, title: 'Niveau 2'},
-            { number: 3, title: 'Niveau 3'},
-            { number: 4, title: 'Niveau 4'},
-            { number: 5, title: 'Niveau 5'}
+            { number: 1, title: 'par substitution'},
+            { number: 2, title: 'par combinaisons linéaires'}
         ]);
-        setNodeIframe('3SYS', 1, 'url');
+        setNodeIframe('3SYS', 1, 'https://coopmaths.fr/alea/?uuid=ccb71&id=2G34-3&n=1&d=10&s=1&cd=1&tip=0&alea=2VsK&uuid=521b6&id=2G34-7&n=2&d=10&s=1&cd=1&tip=0&alea=asRH&uuid=521b6&id=2G34-7&n=2&d=10&s=2&cd=1&tip=0&alea=9GPR&v=eleve&es=21100000&title=Syst%25C3%25A8mes%2520lin%25C3%25A9aires%2520%253A%2520r%25C3%25A9solution%2520par%2520substitution');
+        setNodeIframe('3SYS', 2, 'https://coopmaths.fr/alea/?uuid=ccb71&id=2G34-3&n=1&d=10&s=2&i=1&cd=1&tip=0&uuid=5179b&id=2G34-5&n=2&d=10&s=1&s2=false&s3=false&i=1&cd=1&tip=0&uuid=5179b&id=2G34-5&n=2&d=10&s=2&s2=false&s3=false&i=1&cd=1&tip=0&uuid=5179b&id=2G34-5&n=1&d=10&s=3&s2=false&s3=false&i=1&cd=1&tip=0&uuid=5179b&id=2G34-5&n=1&d=10&s=3&s2=true&s3=false&i=1&cd=1&tip=0&v=eleve&es=21100000&title=Syst%25C3%25A8mes%2520lin%25C3%25A9aires%2520%253A%2520r%25C3%25A9solution%2520par%2520combinaisons%2520lin%25C3%25A9aires');
 
         createNode('3PE',"Puissances entières", 5, 4150, ['12PR']);
         setNodeLevels('3PE',[
